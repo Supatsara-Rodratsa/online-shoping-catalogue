@@ -26,5 +26,39 @@ h1 {
 }
 
 h2 {
+  font-size: 24px;
+}
+
+h3 {
   font-size: 16px;
+}
+
+.slide-in-animation {
+  animation: slide-in 600ms ease-out;
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.slide-out-animation {
+  /* animation: slide-out 600ms ease-out; */
+}
+
+@keyframes slide-out {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(400%);
+    opacity: 0;
+  }
 }
