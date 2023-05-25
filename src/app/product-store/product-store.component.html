@@ -1,2 +1,8 @@
-<p>product-store works!</p>
-<app-product-catalogue-item />
+<div class="product-store-catalogue-container">
+  <h1>Products Catalogue</h1>
+  <div class="product-store-catalogue-items">
+    <div *ngFor="let product of allProducts">
+      <app-product-catalogue-item [product]="product" />
+    </div>
+  </div>
+</div>

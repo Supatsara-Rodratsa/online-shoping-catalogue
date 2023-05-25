@@ -5,7 +5,6 @@ import { SharedModule } from '../shared/shared.module';
 import { ProductCatalogueItemComponent } from './components/product-catalogue-item/product-catalogue-item.component';
 import { ProductStoreService } from './services/product-store.service';
 import { ProductStoreComponent } from './product-store.component';
-import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -13,7 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
     ProductCatalogueItemComponent,
     ProductStoreComponent,
   ],
-  imports: [CommonModule, SharedModule, HttpClientModule],
+  imports: [CommonModule, SharedModule],
   exports: [ProductStoreComponent],
   providers: [ProductStoreService],
 })
