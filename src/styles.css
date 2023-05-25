@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 :root {
-  --primary-color: #bbb6af;
+  --primary-color: #ddd9d4;
   --secondary-color: #212024;
   --background-color: #ededed;
   --disabled-color: #e6e6e6;
@@ -22,5 +22,9 @@ body {
 }
 
 h1 {
+  font-size: 32px;
+}
+
+h2 {
   font-size: 16px;
 }
