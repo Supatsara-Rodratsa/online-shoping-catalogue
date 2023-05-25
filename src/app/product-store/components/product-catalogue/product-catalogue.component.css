@@ -1,0 +1,15 @@
+.product-catalogue-container {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.product-catalogue-items {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: start;
+  max-width: 100vw;
+  margin: auto;
+}

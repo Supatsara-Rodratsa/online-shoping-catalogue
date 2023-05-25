@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-product-details',
@@ -7,15 +7,24 @@ import { Component, Input } from '@angular/core';
 })
 export class ProductDetailsComponent {
   @Input()
-  title = 'Product Title';
+  variant: 'cart' | 'catalogue' = 'catalogue';
 
   @Input()
-  price = 20;
+  title!: string;
+
+  @Input()
+  price = 0;
 
   @Input()
   showButton = true;
 
-  handleButtonClick(clicked: boolean) {
-    console.log(clicked);
+  @Input()
+  quantity = 0;
+
+  @Output()
+  addItem = new EventEmitter<boolean>();
+
+  handleAddButtonClick() {
+    this.addItem.emit(true);
   }
 }

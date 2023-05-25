@@ -1,8 +1,4 @@
-<div class="product-store-catalogue-container">
-  <h1>Products Catalogue</h1>
-  <div class="product-store-catalogue-items">
-    <div *ngFor="let product of allProducts">
-      <app-product-catalogue-item [product]="product" />
-    </div>
-  </div>
+<div class="product-store-container">
+  <app-product-catalogue [allProducts]="allProducts" />
+  <app-product-cart [allCartItems]="allCartItems" [totalPrice]="totalPrice" />
 </div>

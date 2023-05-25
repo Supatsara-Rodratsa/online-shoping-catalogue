@@ -1,11 +1,12 @@
-<div class="product-detail-container">
+<div class="product-detail-container" [class.cart]="variant === 'cart'">
   <div class="product-detail-header">
-    <h2>{{ title }}</h2>
-    <app-cart-button
-      *ngIf="showButton"
-      label="Add to Cart"
-      (clicked)="handleButtonClick($event)"
-    />
+    <h3>{{ title }}</h3>
+    <app-cart-button *ngIf="showButton" (click)="handleAddButtonClick()">
+      Add to Cart</app-cart-button
+    >
   </div>
-  <p>€ {{ price | number : '1.2-2' }}</p>
+  <div class="product-detail-header">
+    <p>€ {{ price | number : '1.2-2' }}</p>
+    <p *ngIf="quantity > 0">{{ quantity }}x</p>
+  </div>
 </div>

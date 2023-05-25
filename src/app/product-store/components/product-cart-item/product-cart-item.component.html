@@ -1,0 +1,15 @@
+<div
+  class="product-cart-item-container"
+  [class.slide-in-animation]="quantity === 1"
+>
+  <div class="product-cart-image-container">
+    <img src="{{ selectedProduct.image }}" />
+  </div>
+  <app-product-details
+    [title]="selectedProduct.title"
+    [price]="selectedProduct.price"
+    [showButton]="false"
+    [quantity]="quantity"
+    [variant]="'cart'"
+  />
+</div>

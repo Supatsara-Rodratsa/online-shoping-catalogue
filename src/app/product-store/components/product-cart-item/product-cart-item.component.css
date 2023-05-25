@@ -1,0 +1,22 @@
+.product-cart-item-container {
+  display: flex;
+  width: 350px;
+  background-color: white;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.product-cart-image-container {
+  max-width: 100px;
+  height: 100px;
+  background-color: var(--primary-color);
+  padding: 16px;
+  width: 100%;
+}
+
+.product-cart-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}

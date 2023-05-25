@@ -1,8 +1,13 @@
-.product-store-catalogue-container {
+.product-store-catalogue-container,
+.product-store-cart-container {
   margin: auto;
   display: flex;
   flex-direction: column;
   gap: 16px;
+}
+
+.product-store-cart-container {
+  margin: 0;
 }
 
 .product-store-catalogue-items {
@@ -17,4 +22,8 @@
 .product-store-catalogue {
   display: flex;
   gap: 16px;
+}
+
+.product-store-container {
+  display: flex;
 }

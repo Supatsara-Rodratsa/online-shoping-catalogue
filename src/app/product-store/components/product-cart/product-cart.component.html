@@ -1,0 +1,22 @@
+<div *ngIf="allCartItems.length > 0" class="product-cart-container">
+  <div class="product-cart-header">
+    <h1>Carts</h1>
+    <app-cart-button *ngIf="allCartItems.length > 0" (click)="clearCartItems()"
+      >Clear</app-cart-button
+    >
+  </div>
+  <div class="cart-item-container">
+    <div class="cart-items" *ngIf="allCartItems.length > 0; else elseBlock">
+      <div *ngFor="let cartItem of allCartItems">
+        <app-product-cart-item
+          [selectedProduct]="cartItem.product"
+          [quantity]="cartItem.quantity"
+        />
+      </div>
+    </div>
+    <ng-template #elseBlock>
+      <div class="empty-cart-item">Your cart is empty</div>
+    </ng-template>
+  </div>
+  <h2>Total: € {{ totalPrice | number : '1.2-2' }}</h2>
+</div>
