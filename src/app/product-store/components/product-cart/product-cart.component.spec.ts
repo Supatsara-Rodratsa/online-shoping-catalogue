@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ProductCartComponent } from './product-cart.component';
+import { CommonModule } from '@angular/common';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 describe('ProductCartComponent', () => {
   let component: ProductCartComponent;
@@ -9,6 +11,7 @@ describe('ProductCartComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [ProductCartComponent],
+      imports: [CommonModule, SharedModule],
     });
     fixture = TestBed.createComponent(ProductCartComponent);
     component = fixture.componentInstance;

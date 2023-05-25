@@ -25,8 +25,8 @@ export class ProductStoreComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.allCartItemsSubscription.unsubscribe();
-    this.totalPriceSubscription.unsubscribe();
+    this.allCartItemsSubscription?.unsubscribe();
+    this.totalPriceSubscription?.unsubscribe();
   }
 
   subscribeCartItems() {
