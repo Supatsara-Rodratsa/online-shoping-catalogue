@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ProductStoreService } from './services/product-store.service';
-import { Product } from '../interfaces/product.interfact';
+import { Product } from '../interfaces/product.interface';
 
 @Component({
   selector: 'app-product-store',
