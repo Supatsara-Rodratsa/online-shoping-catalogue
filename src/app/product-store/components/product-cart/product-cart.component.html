@@ -18,5 +18,5 @@
       <div class="empty-cart-item">Your cart is empty</div>
     </ng-template>
   </div>
-  <h2>Total: € {{ totalPrice | number : '1.2-2' }}</h2>
+  <h2>Total: {{ 'euro' | currency : convertTotalPrice.value }}</h2>
 </div>
