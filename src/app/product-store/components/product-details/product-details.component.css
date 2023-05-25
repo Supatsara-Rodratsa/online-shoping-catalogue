@@ -1,0 +1,13 @@
+.product-detail-container {
+  padding: 16px;
+  background-color: var(--secondary-color);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.product-detail-header {
+  display: flex;
+  justify-content: space-between;
+}
