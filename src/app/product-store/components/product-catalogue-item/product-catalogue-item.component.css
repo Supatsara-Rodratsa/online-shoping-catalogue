@@ -1,0 +1,22 @@
+.product-catalogue-item-container {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+}
+
+.product-image-container {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  padding: 16px;
+  background-color: var(--primary-color);
+}
+
+.product-image-container img {
+  width: 100%;
+  height: 200px;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  border: 10px solid darkslategrey;
+  padding: 10px;
+}
