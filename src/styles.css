@@ -1,1 +1,26 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+  --primary-color: #bbb6af;
+  --secondary-color: #212024;
+  --background-color: #ededed;
+  --disabled-color: #e6e6e6;
+  --text-color: #3b3a3e;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+}
+
+html,
+body {
+  background-color: var(--background-color);
+  font-size: 16px;
+}
+
+h1 {
+  font-size: 16px;
+}
