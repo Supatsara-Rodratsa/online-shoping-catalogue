@@ -13,8 +13,8 @@ export class ProductStoreComponent implements OnInit, OnDestroy {
   allProducts: Product[] = [];
   allCartItems: Cart[] = [];
   totalPrice = 0;
-  allCartItemsSubscription!: Subscription;
-  totalPriceSubscription!: Subscription;
+  allCartItemsSubscription$!: Subscription;
+  totalPriceSubscription$!: Subscription;
 
   constructor(private productStoreService: ProductStoreService) {}
 
@@ -25,16 +25,16 @@ export class ProductStoreComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.allCartItemsSubscription?.unsubscribe();
-    this.totalPriceSubscription?.unsubscribe();
+    this.allCartItemsSubscription$?.unsubscribe();
+    this.totalPriceSubscription$?.unsubscribe();
   }
 
   subscribeCartItems() {
-    this.allCartItemsSubscription = this.productStoreService
+    this.allCartItemsSubscription$ = this.productStoreService
       .getAllCartItemsObservable()
       .subscribe((value) => (this.allCartItems = value));
 
-    this.totalPriceSubscription = this.productStoreService
+    this.totalPriceSubscription$ = this.productStoreService
       .getTotalPrice()
       .subscribe((value) => (this.totalPrice = value));
   }

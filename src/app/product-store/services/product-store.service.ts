@@ -10,23 +10,23 @@ export class ProductStoreService {
   private cartItems: BehaviorSubject<Cart[]> = new BehaviorSubject<Cart[]>([]);
   private totalPrice: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
-  public getAllProducts(): Product[] {
+  getAllProducts(): Product[] {
     return this.products;
   }
 
-  public setAllProducts(products: Product[]): void {
+  setAllProducts(products: Product[]): void {
     this.products = products;
   }
 
-  public getAllCartItemsObservable(): Observable<Cart[]> {
+  getAllCartItemsObservable(): Observable<Cart[]> {
     return this.cartItems.asObservable();
   }
 
-  public getTotalPrice(): Observable<number> {
+  getTotalPrice(): Observable<number> {
     return this.totalPrice.asObservable();
   }
 
-  public addCartItem(product: Product): void {
+  addCartItem(product: Product): void {
     const currentItemIndex = this.cartItems.value.findIndex(
       (item) => item.product.id === product.id,
     );
@@ -54,7 +54,7 @@ export class ProductStoreService {
     this.totalPrice.next(currentTotalPrice + product.price);
   }
 
-  public removeCartItem(product: Product): void {
+  removeCartItem(product: Product): void {
     const currentItemIndex = this.cartItems.value.findIndex(
       (item) => item.product.id === product.id,
     );
@@ -77,7 +77,7 @@ export class ProductStoreService {
     this.totalPrice.next(currentTotalPrice - product.price);
   }
 
-  public clearCartItems(): void {
+  clearCartItems(): void {
     this.cartItems.next([]);
     this.totalPrice.next(0);
   }
