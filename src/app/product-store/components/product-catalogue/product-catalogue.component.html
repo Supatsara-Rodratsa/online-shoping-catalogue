@@ -1,8 +1,9 @@
 <div class="product-catalogue-container">
   <h1>Products Catalogue</h1>
   <div class="product-catalogue-items" *ngIf="allProducts.length > 0">
-    <div *ngFor="let product of allProducts">
-      <app-product-catalogue-item [product]="product" />
-    </div>
+    <app-product-catalogue-item
+      *ngFor="let product of allProducts"
+      [product]="product"
+    />
   </div>
 </div>

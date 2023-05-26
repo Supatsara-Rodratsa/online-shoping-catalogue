@@ -10,13 +10,12 @@
   </div>
   <div class="cart-item-container">
     <div class="cart-items" *ngIf="allCartItems.length > 0; else elseBlock">
-      <div *ngFor="let cartItem of allCartItems">
-        <app-product-cart-item
-          [selectedProduct]="cartItem.product"
-          [quantity]="cartItem.quantity"
-          [isDisableAnimation]="!!cartItem.isUpdated"
-        />
-      </div>
+      <app-product-cart-item
+        *ngFor="let cartItem of allCartItems"
+        [selectedProduct]="cartItem.product"
+        [quantity]="cartItem.quantity"
+        [isDisableAnimation]="!!cartItem.isUpdated"
+      />
     </div>
     <ng-template #elseBlock>
       <div class="empty-cart-item">Your cart is empty</div>
