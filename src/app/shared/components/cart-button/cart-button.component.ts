@@ -7,5 +7,8 @@ import { Component, Input } from '@angular/core';
 })
 export class CartButtonComponent {
   @Input()
+  variant: 'contained' | 'text' = 'contained';
+
+  @Input()
   isDisable = false;
 }

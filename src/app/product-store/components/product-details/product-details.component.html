@@ -1,7 +1,11 @@
 <div class="product-detail-container" [class.cart]="variant === 'cart'">
   <div class="product-detail-header">
     <h3>{{ title }}</h3>
-    <app-cart-button *ngIf="showButton" (click)="handleAddButtonClick()">
+    <app-cart-button
+      *ngIf="showButton"
+      class="product-detail-button"
+      (click)="handleAddButtonClick()"
+    >
       Add to Cart</app-cart-button
     >
   </div>

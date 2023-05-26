@@ -1,3 +1,8 @@
-<button [disabled]="isDisable">
+<button
+  [disabled]="isDisable"
+  [ngClass]="{
+    'text-button': variant === 'text'
+  }"
+>
   <ng-content></ng-content>
 </button>

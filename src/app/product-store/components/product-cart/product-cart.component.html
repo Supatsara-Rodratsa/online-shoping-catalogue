@@ -1,7 +1,10 @@
 <div *ngIf="allCartItems.length > 0" class="product-cart-container">
   <div class="product-cart-header">
     <h1>Carts</h1>
-    <app-cart-button *ngIf="allCartItems.length > 0" (click)="clearCartItems()"
+    <app-cart-button
+      [variant]="'text'"
+      *ngIf="allCartItems.length > 0"
+      (click)="clearCartItems()"
       >Clear</app-cart-button
     >
   </div>

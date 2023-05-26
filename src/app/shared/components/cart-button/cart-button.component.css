@@ -6,7 +6,6 @@ button {
   background-color: var(--secondary-color);
   color: white;
   font-size: 12px;
-  min-width: 90px;
 }
 
 button:hover:not(:disabled) {
@@ -18,4 +17,15 @@ button:hover:not(:disabled) {
 button:disabled {
   background-color: var(--disabled-color);
   cursor: default;
+}
+
+.text-button,
+.text-button:hover:not(:disabled) {
+  background-color: transparent;
+  color: var(--secondary-color);
+  padding: 0;
+}
+
+.text-button:hover {
+  text-decoration: underline;
 }
