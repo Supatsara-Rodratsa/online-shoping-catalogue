@@ -1,7 +1,7 @@
 <div
   *ngIf="selectedProduct"
   class="product-cart-item-container"
-  [class.slide-in-animation]="quantity === 1"
+  [class.slide-in-animation]="!isDisableAnimation"
 >
   <div class="product-cart-image-container">
     <img src="{{ selectedProduct.image }}" />
@@ -12,5 +12,7 @@
     [showButton]="false"
     [quantity]="quantity"
     [variant]="'cart'"
+    (addItem)="handleAddCartItem($event)"
+    (removeItem)="handleRemoveCartItem($event)"
   />
 </div>

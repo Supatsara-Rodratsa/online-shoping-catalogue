@@ -24,7 +24,14 @@ export class ProductDetailsComponent {
   @Output()
   addItem = new EventEmitter<boolean>();
 
+  @Output()
+  removeItem = new EventEmitter<boolean>();
+
   handleAddButtonClick() {
     this.addItem.emit(true);
+  }
+
+  handleRemoveButtonClick() {
+    this.removeItem.emit(true);
   }
 }

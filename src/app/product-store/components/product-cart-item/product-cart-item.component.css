@@ -6,8 +6,8 @@
 }
 
 .product-cart-image-container {
-  max-width: 100px;
-  height: 100px;
+  max-width: 105px;
+  height: 105px;
   background-color: var(--primary-color);
   padding: 16px;
   width: 100%;

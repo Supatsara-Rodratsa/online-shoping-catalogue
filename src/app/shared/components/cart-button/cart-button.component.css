@@ -10,7 +10,7 @@ button {
 
 button:hover:not(:disabled) {
   cursor: pointer;
-  background-color: white;
+  background-color: var(--primary-color);
   color: var(--secondary-color);
 }
 
@@ -26,6 +26,12 @@ button:disabled {
   padding: 0;
 }
 
-.text-button:hover {
+.text-button:hover:not(:disabled) {
   text-decoration: underline;
+}
+
+.round-button {
+  padding: 2px;
+  min-width: 22px;
+  min-height: 22px;
 }

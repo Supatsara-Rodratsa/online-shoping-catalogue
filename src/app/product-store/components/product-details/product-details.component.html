@@ -9,8 +9,16 @@
       Add to Cart</app-cart-button
     >
   </div>
-  <div class="product-detail-header">
+  <div class="product-cart-detail">
     <p>{{ price | currency : 'EUR' : 'symbol' : '1.2-2' }}</p>
-    <p *ngIf="quantity > 0">{{ quantity }}x</p>
+    <div class="product-cart-container" *ngIf="variant === 'cart'">
+      <app-cart-button [variant]="'round'" (click)="handleRemoveButtonClick()"
+        >-</app-cart-button
+      >
+      <p>{{ quantity }}</p>
+      <app-cart-button [variant]="'round'" (click)="handleAddButtonClick()"
+        >+</app-cart-button
+      >
+    </div>
   </div>
 </div>

@@ -16,4 +16,5 @@ interface Rating {
 export interface Cart {
   product: Product;
   quantity: number;
+  isUpdated?: boolean;
 }

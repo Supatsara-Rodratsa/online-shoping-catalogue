@@ -37,6 +37,7 @@ export class ProductStoreService {
       updatedCartItems[currentItemIndex] = {
         ...currentProductCartDetail,
         quantity: currentProductCartDetail.quantity + 1,
+        isUpdated: true,
       };
 
       this.cartItems.next(updatedCartItems);
@@ -51,6 +52,29 @@ export class ProductStoreService {
     }
     const currentTotalPrice = this.totalPrice.value;
     this.totalPrice.next(currentTotalPrice + product.price);
+  }
+
+  public removeCartItem(product: Product): void {
+    const currentItemIndex = this.cartItems.value.findIndex(
+      (item) => item.product.id === product.id,
+    );
+    if (currentItemIndex !== -1) {
+      const updatedCartItems = [...this.cartItems.value];
+      const currentCartItem = updatedCartItems[currentItemIndex];
+      const updateQuantity = (currentCartItem.quantity -= 1);
+      if (updateQuantity > 0) {
+        currentCartItem.quantity = updateQuantity;
+        updatedCartItems[currentItemIndex] = {
+          ...currentCartItem,
+          isUpdated: true,
+        };
+      } else {
+        updatedCartItems.splice(currentItemIndex, 1);
+      }
+      this.cartItems.next(updatedCartItems);
+    }
+    const currentTotalPrice = this.totalPrice.value;
+    this.totalPrice.next(currentTotalPrice - product.price);
   }
 
   public clearCartItems(): void {

@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Product } from 'src/app/interfaces/product.interface';
+import { ProductStoreService } from '../../services/product-store.service';
 
 @Component({
   selector: 'app-product-cart-item',
@@ -11,4 +12,20 @@ export class ProductCartItemComponent {
   selectedProduct!: Product;
   @Input()
   quantity = 0;
+  @Input()
+  isDisableAnimation = false;
+
+  constructor(private productStoreService: ProductStoreService) {}
+
+  handleAddCartItem(clicked: boolean) {
+    if (clicked && this.selectedProduct) {
+      this.productStoreService.addCartItem(this.selectedProduct);
+    }
+  }
+
+  handleRemoveCartItem(clicked: boolean) {
+    if (clicked && this.selectedProduct) {
+      this.productStoreService.removeCartItem(this.selectedProduct);
+    }
+  }
 }
