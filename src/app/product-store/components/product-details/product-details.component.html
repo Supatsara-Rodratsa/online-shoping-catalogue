@@ -6,7 +6,7 @@
     >
   </div>
   <div class="product-detail-header">
-    <p>{{ 'euro' | currency : convertPrice.value }}</p>
+    <p>{{ price | currency : 'EUR' : 'symbol' : '1.2-2' }}</p>
     <p *ngIf="quantity > 0">{{ quantity }}x</p>
   </div>
 </div>

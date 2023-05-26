@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
-import { CommonModule, DecimalPipe } from '@angular/common';
+import { CommonModule, CurrencyPipe } from '@angular/common';
 import { CartButtonComponent } from './components/cart-button/cart-button.component';
-import { CurrencyPipe } from './pipes/currency.pipe';
 @NgModule({
-  declarations: [CartButtonComponent, CurrencyPipe],
+  declarations: [CartButtonComponent],
   imports: [CommonModule],
-  exports: [CartButtonComponent, CurrencyPipe],
-  providers: [CurrencyPipe, DecimalPipe],
+  exports: [CartButtonComponent],
+  providers: [CurrencyPipe],
 })
 export class SharedModule {}
