@@ -1,4 +1,8 @@
 <div class="online-shop-container" role="main">
-  <app-product-store />
+  <ng-container *ngIf="allProducts$ | async as products; else elseBlock">
+    <app-product-store [allProducts]="products" />
+  </ng-container>
+  <ng-template #elseBlock>
+    <h2>Oops, Something went wrong!!</h2>
+  </ng-template>
 </div>
-<router-outlet></router-outlet>

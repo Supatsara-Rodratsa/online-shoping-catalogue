@@ -4,7 +4,7 @@
   [class.slide-in-animation]="!isDisableAnimation"
 >
   <div class="product-cart-image-container">
-    <img src="{{ selectedProduct.image }}" />
+    <img src="{{ selectedProduct.image }}" alt="{{ selectedProduct.title }}" />
   </div>
   <app-product-details
     [title]="selectedProduct.title"

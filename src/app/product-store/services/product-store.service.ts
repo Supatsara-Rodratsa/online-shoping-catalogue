@@ -6,79 +6,72 @@ import { BehaviorSubject, Observable, map } from 'rxjs';
   providedIn: 'root',
 })
 export class ProductStoreService {
-  private products: Product[] = [];
-  private cartItems: BehaviorSubject<Cart[]> = new BehaviorSubject<Cart[]>([]);
-  // Observable stream for totalPrice
-  private totalPrice$ = this.cartItems.pipe(
-    map((items: Cart[]) => this.calculateTotalPrice(items)),
+  private products = new BehaviorSubject<Product[]>([]);
+  private cartItems = new BehaviorSubject<Map<number, Cart>>(
+    new Map<number, Cart>(),
   );
+  private categories = new Set<string>();
 
-  getAllProducts(): Product[] {
-    return this.products;
+  getAllProducts(): Observable<Product[]> {
+    return this.products.asObservable();
   }
 
   setAllProducts(products: Product[]): void {
-    this.products = products;
+    this.products.next(products);
+    this.setAllCategories(products);
+  }
+
+  setAllCategories(products: Product[]) {
+    products.forEach((product) => this.categories.add(product.category));
+  }
+
+  getAllCategories() {
+    return this.categories;
   }
 
   getAllCartItemsObservable(): Observable<Cart[]> {
-    return this.cartItems.asObservable();
+    return this.cartItems.pipe(map((items) => Array.from(items.values())));
   }
 
   getTotalPrice(): Observable<number> {
-    return this.totalPrice$;
+    return this.cartItems.pipe(
+      map((items) => Array.from(items.values())),
+      map((items) => this.calculateTotalPrice(items)),
+    );
   }
 
   addCartItem(product: Product): void {
-    const currentItemIndex = this.cartItems.value.findIndex(
-      (item) => item.product.id === product.id,
-    );
-
-    if (currentItemIndex !== -1) {
-      const currentProductCartDetail = this.cartItems.value[currentItemIndex];
-      const updatedCartItems = [...this.cartItems.value];
-      updatedCartItems[currentItemIndex] = {
-        ...currentProductCartDetail,
-        quantity: currentProductCartDetail.quantity + 1,
-        isUpdated: true,
-      };
-
-      this.cartItems.next(updatedCartItems);
+    const currentAllCartItems = this.cartItems.value;
+    const item = currentAllCartItems.get(product.id);
+    if (item) {
+      item.quantity += 1;
+      currentAllCartItems.set(product.id, { ...item });
     } else {
-      const newCartItem = {
+      currentAllCartItems.set(product.id, {
         product,
         quantity: 1,
-      };
-      const updatedCartItems = [...this.cartItems.value, newCartItem];
-
-      this.cartItems.next(updatedCartItems);
+        isUpdated: true,
+      });
     }
+    this.cartItems.next(currentAllCartItems);
   }
 
   removeCartItem(product: Product): void {
-    const currentItemIndex = this.cartItems.value.findIndex(
-      (item) => item.product.id === product.id,
-    );
-    if (currentItemIndex !== -1) {
-      const updatedCartItems = [...this.cartItems.value];
-      const currentCartItem = updatedCartItems[currentItemIndex];
-      const updateQuantity = (currentCartItem.quantity -= 1);
-
-      if (updateQuantity > 0) {
-        currentCartItem.quantity = updateQuantity;
-        updatedCartItems[currentItemIndex] = {
-          ...currentCartItem,
-          isUpdated: true,
-        };
+    const currentAllCartItems = this.cartItems.value;
+    const item = currentAllCartItems.get(product.id);
+    if (item) {
+      item.quantity -= 1;
+      if (item.quantity > 0) {
+        currentAllCartItems.set(product.id, { ...item });
       } else {
-        updatedCartItems.splice(currentItemIndex, 1);
+        currentAllCartItems.delete(product.id);
       }
-      this.cartItems.next(updatedCartItems);
     }
+    this.cartItems.next(currentAllCartItems);
   }
 
   clearCartItems(): void {
-    this.cartItems.next([]);
+    this.cartItems.next(new Map<number, Cart>());
   }
 
   private calculateTotalPrice(items: Cart[]): number {

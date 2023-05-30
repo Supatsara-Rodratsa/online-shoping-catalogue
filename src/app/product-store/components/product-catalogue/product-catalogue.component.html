@@ -1,9 +1,16 @@
 <div class="product-catalogue-container">
   <h1>Products Catalogue</h1>
-  <div class="product-catalogue-items" *ngIf="allProducts.length > 0">
-    <app-product-catalogue-item
-      *ngFor="let product of allProducts"
-      [product]="product"
-    />
-  </div>
+  <ng-container *ngIf="allProducts.length > 0; else elseBlock">
+    <div class="product-catalogue-items">
+      <app-product-catalogue-item
+        *ngFor="let product of allProducts"
+        [product]="product"
+      />
+    </div>
+  </ng-container>
+  <ng-template #elseBlock>
+    <div class="empty-product-catalogue">
+      <p>No products available at the moment.</p>
+    </div>
+  </ng-template>
 </div>

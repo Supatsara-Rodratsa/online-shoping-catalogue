@@ -1,4 +1,10 @@
 <div class="product-store-container">
-  <app-product-catalogue [allProducts]="allProducts" />
-  <app-product-cart [allCartItems]="allCartItems" [totalPrice]="totalPrice" />
+  <app-product-catalogue
+    class="product-catalogue"
+    [allProducts]="allProducts"
+  />
+  <app-product-cart
+    [allCartItems]="(allCartItems$ | async) ?? []"
+    [totalPrice]="(totalPrice$ | async) ?? 0"
+  />
 </div>
