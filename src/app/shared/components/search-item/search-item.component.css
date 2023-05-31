@@ -13,7 +13,6 @@ input {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-input:hover,
 input:focus {
   width: 350px;
 }

@@ -13,15 +13,27 @@
         />
       </div>
       <div class="product-catalogue-items">
-        <app-product-catalogue-item
-          *ngFor="
-            let product of allProducts
-              | filterProducts : currentTab : currentSearchKey
+        <ng-container
+          *ngIf="
+            allProducts
+              | filterProducts
+                : currentTab
+                : currentSearchKey as filteredProducts
           "
-          [product]="product"
-          [searchKeyword]="highlightText"
-          (addProductToCart)="addProductToCart($event)"
-        />
+        >
+          <ng-container *ngIf="filteredProducts.length > 0; else elseBlock"
+            ><app-product-catalogue-item
+              *ngFor="let product of filteredProducts"
+              [product]="product"
+              [searchKeyword]="highlightText"
+              (addProductToCart)="addProductToCart($event)"
+          /></ng-container>
+          <ng-template #elseBlock
+            ><div class="empty-product-catalogue">
+              <p>Product Not Found</p>
+            </div></ng-template
+          >
+        </ng-container>
       </div>
     </div>
   </ng-container>
