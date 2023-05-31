@@ -41,7 +41,7 @@ export class ProductService {
   }
 
   addCartItem(product: Product): void {
-    const currentAllCartItems = this.cartItems.value;
+    const currentAllCartItems = this.cartItems.getValue();
     const item = currentAllCartItems.get(product.id);
     if (item) {
       item.quantity += 1;
@@ -58,7 +58,7 @@ export class ProductService {
   }
 
   removeCartItem(product: Product): void {
-    const currentAllCartItems = this.cartItems.value;
+    const currentAllCartItems = this.cartItems.getValue();
     const item = currentAllCartItems.get(product.id);
     if (item) {
       item.quantity -= 1;
