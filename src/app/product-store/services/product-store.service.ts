@@ -45,6 +45,7 @@ export class ProductStoreService {
     const item = currentAllCartItems.get(product.id);
     if (item) {
       item.quantity += 1;
+      item.isUpdated = false;
       currentAllCartItems.set(product.id, { ...item });
     } else {
       currentAllCartItems.set(product.id, {

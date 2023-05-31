@@ -1,11 +1,14 @@
 <div class="product-catalogue-container">
   <h1>Products Catalogue</h1>
   <ng-container *ngIf="allProducts.length > 0; else elseBlock">
-    <div class="product-catalogue-items">
-      <app-product-catalogue-item
-        *ngFor="let product of allProducts"
-        [product]="product"
-      />
+    <div>
+      <app-tabs />
+      <div class="product-catalogue-items">
+        <app-product-catalogue-item
+          *ngFor="let product of allProducts"
+          [product]="product"
+        />
+      </div>
     </div>
   </ng-container>
   <ng-template #elseBlock>
