@@ -33,7 +33,7 @@ export class ProductService {
     return this.cartItems.pipe(map((items) => Array.from(items.values())));
   }
 
-  getTotalPrice(): Observable<number> {
+  getTotalPriceObservable(): Observable<number> {
     return this.cartItems.pipe(
       map((items) => Array.from(items.values())),
       map((items) => this.calculateTotalPrice(items)),

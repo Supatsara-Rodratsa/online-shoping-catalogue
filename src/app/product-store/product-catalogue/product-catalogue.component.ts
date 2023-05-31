@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Product } from 'src/app/interfaces/product.interface';
 
 @Component({
@@ -9,4 +9,11 @@ import { Product } from 'src/app/interfaces/product.interface';
 export class ProductCatalogueComponent {
   @Input()
   allProducts: Product[] = [];
+
+  @Output()
+  handleAddingProductToCart = new EventEmitter<Product>();
+
+  addProductToCart(product: Product) {
+    this.handleAddingProductToCart.emit(product);
+  }
 }

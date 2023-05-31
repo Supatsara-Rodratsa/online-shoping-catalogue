@@ -15,6 +15,8 @@
         [selectedProduct]="cartItem.product"
         [quantity]="cartItem.quantity"
         [isDisableAnimation]="!!!cartItem.isUpdated"
+        (addProductToCart)="addProductToCart($event)"
+        (removeProductFromCart)="removeProductFromCart($event)"
       />
     </div>
     <ng-template #elseBlock>

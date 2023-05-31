@@ -2,9 +2,13 @@
   <app-product-catalogue
     class="product-catalogue"
     [allProducts]="allProducts"
+    (handleAddingProductToCart)="addCartItem($event)"
   />
   <app-product-cart
     [allCartItems]="(allCartItems$ | async) ?? []"
     [totalPrice]="(totalPrice$ | async) ?? 0"
+    (handleAddingProductToCart)="addCartItem($event)"
+    (handleRemovingProductFromCart)="removeCartItem($event)"
+    (clearAllCartItems)="clearCartItems()"
   />
 </div>

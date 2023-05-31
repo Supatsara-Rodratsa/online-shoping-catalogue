@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ProductStoreService } from './services/product-store.service';
+import { Observable, of } from 'rxjs';
 import { Cart, Product } from '../interfaces/product.interface';
-import { of } from 'rxjs';
+import { ProductService } from '../services/product.service';
 
 @Component({
   selector: 'app-product-store',
@@ -13,15 +13,24 @@ export class ProductStoreComponent implements OnInit {
   allProducts: Product[] = [];
 
   totalPrice$ = of(0);
-  allCartItems$ = of([] as Cart[]);
+  allCartItems$ = new Observable<Cart[]>();
 
-  constructor(private productStoreService: ProductStoreService) {}
+  constructor(private productService: ProductService) {}
 
   ngOnInit(): void {
-    if (this.allProducts) {
-      this.productStoreService.setAllProducts(this.allProducts);
-      this.totalPrice$ = this.productStoreService.getTotalPrice();
-      this.allCartItems$ = this.productStoreService.getAllCartItemsObservable();
-    }
+    this.allCartItems$ = this.productService.getAllCartItemsObservable();
+    this.totalPrice$ = this.productService.getTotalPriceObservable();
+  }
+
+  addCartItem(selectedProduct: Product) {
+    this.productService.addCartItem(selectedProduct);
+  }
+
+  removeCartItem(selectedProduct: Product) {
+    this.productService.removeCartItem(selectedProduct);
+  }
+
+  clearCartItems() {
+    this.productService.clearCartItems();
   }
 }
