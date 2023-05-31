@@ -1,0 +1,24 @@
+<div class="product-detail-container" [class.cart]="variant === 'cart'">
+  <div class="product-detail-header">
+    <h3>{{ title }}</h3>
+    <app-cart-button
+      *ngIf="showButton"
+      class="product-detail-button"
+      (click)="handleAddButtonClick()"
+    >
+      Add to Cart</app-cart-button
+    >
+  </div>
+  <div class="product-cart-detail">
+    <p>{{ price | currency : 'EUR' : 'symbol' : '1.2-2' }}</p>
+    <div class="product-cart-container" *ngIf="variant === 'cart'">
+      <app-cart-button [variant]="'round'" (click)="handleRemoveButtonClick()"
+        >-</app-cart-button
+      >
+      <p>{{ quantity }}</p>
+      <app-cart-button [variant]="'round'" (click)="handleAddButtonClick()"
+        >+</app-cart-button
+      >
+    </div>
+  </div>
+</div>

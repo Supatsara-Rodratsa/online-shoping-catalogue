@@ -4,14 +4,16 @@ import { CartButtonComponent } from './components/cart-button/cart-button.compon
 import { TabsComponent } from './components/tabs/tabs.component';
 import { UniqueValuePipe } from './pipes/unique-value.pipe';
 import { TabItemComponent } from './components/tab-item/tab-item.component';
+import { ProductDetailsComponent } from './components/product-details/product-details.component';
 @NgModule({
   declarations: [
     CartButtonComponent,
     TabsComponent,
     UniqueValuePipe,
     TabItemComponent,
+    ProductDetailsComponent,
   ],
   imports: [CommonModule],
-  exports: [CartButtonComponent, TabsComponent],
+  exports: [CartButtonComponent, TabsComponent, ProductDetailsComponent],
 })
 export class SharedModule {}
