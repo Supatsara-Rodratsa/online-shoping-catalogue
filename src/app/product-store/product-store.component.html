@@ -1,14 +1,18 @@
 <div class="product-store-container">
-  <app-product-catalogue
-    class="product-catalogue"
-    [allProducts]="allProducts"
-    (handleAddingProductToCart)="addCartItem($event)"
-  />
-  <app-product-cart
-    [allCartItems]="(allCartItems$ | async) ?? []"
-    [totalPrice]="(totalPrice$ | async) ?? 0"
-    (handleAddingProductToCart)="addCartItem($event)"
-    (handleRemovingProductFromCart)="removeCartItem($event)"
-    (clearAllCartItems)="clearCartItems()"
-  />
+  <ng-container *ngIf="allProducts$ | async as products; else elseBlock">
+    <app-product-catalogue
+      class="product-catalogue"
+      [allProducts]="products"
+      (handleAddingProductToCart)="addCartItem($event)"
+    />
+    <app-product-cart
+      [allCartItems]="(allCartItems$ | async) ?? []"
+      [totalPrice]="(totalPrice$ | async) ?? 0"
+      (handleAddingProductToCart)="addCartItem($event)"
+      (handleRemovingProductFromCart)="removeCartItem($event)"
+      (clearAllCartItems)="clearCartItems()"
+    />
+  </ng-container>
+  <!-- Error Handling -->
+  <ng-template #elseBlock> <ng-content></ng-content> </ng-template>
 </div>

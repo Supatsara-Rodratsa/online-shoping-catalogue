@@ -1,6 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { Cart, Product } from '../interfaces/product.interface';
+import { Component } from '@angular/core';
+import { Product } from '../interfaces/product.interface';
 import { ProductService } from '../services/product.service';
 
 @Component({
@@ -8,18 +7,19 @@ import { ProductService } from '../services/product.service';
   templateUrl: './product-store.component.html',
   styleUrls: ['./product-store.component.css'],
 })
-export class ProductStoreComponent implements OnInit {
-  @Input()
-  allProducts: Product[] = [];
+/**
+ * Stateful Component
+ * Handling everything in service
+ */
+export class ProductStoreComponent {
+  allProducts$;
+  totalPrice$;
+  allCartItems$;
 
-  totalPrice$ = of(0);
-  allCartItems$ = new Observable<Cart[]>();
-
-  constructor(private productService: ProductService) {}
-
-  ngOnInit(): void {
-    this.allCartItems$ = this.productService.getAllCartItemsObservable();
-    this.totalPrice$ = this.productService.getTotalPriceObservable();
+  constructor(private productService: ProductService) {
+    this.allProducts$ = this.productService.getAllProducts();
+    this.allCartItems$ = this.productService.getAllCartItems();
+    this.totalPrice$ = this.productService.getTotalPrice();
   }
 
   addCartItem(selectedProduct: Product) {

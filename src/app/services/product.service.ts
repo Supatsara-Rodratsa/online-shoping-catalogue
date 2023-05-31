@@ -1,39 +1,26 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 import { Cart, Product } from '../interfaces/product.interface';
+import { ajax } from 'rxjs/ajax';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductService {
-  private products = new BehaviorSubject<Product[]>([]);
+  private products$ = ajax.getJSON<Product[]>('/assets/mocks/products.json');
   private cartItems = new BehaviorSubject<Map<number, Cart>>(
     new Map<number, Cart>(),
   );
-  private categories = new Set<string>();
 
   getAllProducts(): Observable<Product[]> {
-    return this.products.asObservable();
+    return this.products$;
   }
 
-  setAllProducts(products: Product[]): void {
-    this.products.next(products);
-    this.setAllCategories(products);
-  }
-
-  setAllCategories(products: Product[]) {
-    products.forEach((product) => this.categories.add(product.category));
-  }
-
-  getAllCategories() {
-    return this.categories;
-  }
-
-  getAllCartItemsObservable(): Observable<Cart[]> {
+  getAllCartItems(): Observable<Cart[]> {
     return this.cartItems.pipe(map((items) => Array.from(items.values())));
   }
 
-  getTotalPriceObservable(): Observable<number> {
+  getTotalPrice(): Observable<number> {
     return this.cartItems.pipe(
       map((items) => Array.from(items.values())),
       map((items) => this.calculateTotalPrice(items)),
@@ -43,17 +30,11 @@ export class ProductService {
   addCartItem(product: Product): void {
     const currentAllCartItems = this.cartItems.getValue();
     const item = currentAllCartItems.get(product.id);
-    if (item) {
-      item.quantity += 1;
-      item.isUpdated = false;
-      currentAllCartItems.set(product.id, { ...item });
-    } else {
-      currentAllCartItems.set(product.id, {
-        product,
-        quantity: 1,
-        isUpdated: true,
-      });
-    }
+    currentAllCartItems.set(product.id, {
+      ...product,
+      quantity: item ? (item.quantity += 1) : 1,
+      isUpdated: item ? false : true,
+    });
     this.cartItems.next(currentAllCartItems);
   }
 
@@ -78,7 +59,7 @@ export class ProductService {
   private calculateTotalPrice(items: Cart[]): number {
     let totalPrice = 0;
     totalPrice = items.reduce((total: number, item: Cart) => {
-      return total + item.product.price * item.quantity;
+      return total + item.price * item.quantity;
     }, 0);
     return totalPrice;
   }

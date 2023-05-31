@@ -22,16 +22,16 @@ export class ProductDetailsComponent {
   quantity = 0;
 
   @Output()
-  addItem = new EventEmitter<boolean>();
+  addItem = new EventEmitter<void>();
 
   @Output()
-  removeItem = new EventEmitter<boolean>();
+  removeItem = new EventEmitter<void>();
 
   handleAddButtonClick() {
-    this.addItem.emit(true);
+    this.addItem.emit();
   }
 
   handleRemoveButtonClick() {
-    this.removeItem.emit(true);
+    this.removeItem.emit();
   }
 }

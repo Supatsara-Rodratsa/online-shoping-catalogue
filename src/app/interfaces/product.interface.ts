@@ -13,8 +13,7 @@ interface Rating {
   count: number;
 }
 
-export interface Cart {
-  product: Product;
+export interface Cart extends Product {
   quantity: number;
   isUpdated?: boolean;
 }

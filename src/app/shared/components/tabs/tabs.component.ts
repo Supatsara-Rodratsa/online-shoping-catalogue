@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-tabs',
@@ -12,11 +12,15 @@ export class TabsComponent implements OnInit {
   @Input()
   activeTab = 'all';
 
+  @Output()
+  selectedTab = new EventEmitter<string>();
+
   ngOnInit(): void {
     this.tabs = ['all'].concat(this.tabs);
   }
 
   handleActiveTabOnChange(selectedTab: string) {
     this.activeTab = selectedTab;
+    this.selectedTab.emit(selectedTab);
   }
 }

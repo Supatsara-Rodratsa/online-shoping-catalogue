@@ -13,7 +13,13 @@ export class ProductCatalogueComponent {
   @Output()
   handleAddingProductToCart = new EventEmitter<Product>();
 
+  currentTab = '';
+
   addProductToCart(product: Product) {
     this.handleAddingProductToCart.emit(product);
+  }
+
+  getSelectedTab(selectedTab: string) {
+    this.currentTab = selectedTab;
   }
 }

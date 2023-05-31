@@ -2,10 +2,16 @@
   <h1>Products Catalogue</h1>
   <ng-container *ngIf="allProducts.length > 0; else elseBlock">
     <div>
-      <app-tabs />
+      <div class="product-catalogue-header">
+        <app-tabs
+          [tabs]="allProducts | filterCategories"
+          (selectedTab)="getSelectedTab($event)"
+        />
+        <app-search-item />
+      </div>
       <div class="product-catalogue-items">
         <app-product-catalogue-item
-          *ngFor="let product of allProducts"
+          *ngFor="let product of allProducts | filterProducts : currentTab"
           [product]="product"
           (addProductToCart)="addProductToCart($event)"
         />
