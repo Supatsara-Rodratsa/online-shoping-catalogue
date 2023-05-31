@@ -1,0 +1,17 @@
+.tab-item-container {
+  min-width: 150px;
+  padding: 10px 32px;
+  color: white;
+  background-color: var(--secondary-color);
+  border: none;
+  border-radius: 10px 10px 0 0;
+  text-transform: capitalize;
+  transition: all 400ms;
+  cursor: pointer;
+}
+
+.isActive {
+  color: var(--text-color);
+  font-weight: 900;
+  background-color: var(--primary-color);
+}
