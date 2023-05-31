@@ -10,6 +10,9 @@ export class ProductCatalogueItemComponent {
   @Input()
   product!: Product;
 
+  @Input()
+  searchKeyword = '';
+
   @Output()
   addProductToCart = new EventEmitter<Product>();
 

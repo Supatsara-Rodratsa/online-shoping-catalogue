@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Tab } from 'src/app/interfaces/product.interface';
 
 @Component({
   selector: 'app-tabs',
@@ -7,7 +8,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class TabsComponent implements OnInit {
   @Input()
-  tabs: string[] = [];
+  tabs: Tab[] = [];
 
   @Input()
   activeTab = 'all';
@@ -16,11 +17,25 @@ export class TabsComponent implements OnInit {
   selectedTab = new EventEmitter<string>();
 
   ngOnInit(): void {
-    this.tabs = ['all'].concat(this.tabs);
+    this.tabs = [
+      { name: 'all', quantity: this.getAllItemQuantity() },
+      ...this.tabs,
+    ];
   }
 
   handleActiveTabOnChange(selectedTab: string) {
     this.activeTab = selectedTab;
     this.selectedTab.emit(selectedTab);
+  }
+
+  getAllItemQuantity() {
+    return (this.tabs as Tab[]).reduce(
+      (acc, item) => acc + (item?.quantity || 0),
+      0,
+    );
+  }
+
+  isStringArray(): boolean {
+    return Array.isArray(this.tabs) && typeof this.tabs[0] === 'string';
   }
 }

@@ -1,6 +1,6 @@
 <div class="product-detail-container" [class.cart]="variant === 'cart'">
   <div class="product-detail-header">
-    <h3>{{ title }}</h3>
+    <h3 [appHighlight]="searchKeyword">{{ title }}</h3>
     <app-cart-button
       *ngIf="showButton"
       class="product-detail-button"

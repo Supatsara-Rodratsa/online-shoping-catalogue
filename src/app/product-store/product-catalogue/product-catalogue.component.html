@@ -4,15 +4,22 @@
     <div>
       <div class="product-catalogue-header">
         <app-tabs
-          [tabs]="allProducts | filterCategories"
+          [tabs]="allProducts | categories : 'includeCountedItems'"
           (selectedTab)="getSelectedTab($event)"
         />
-        <app-search-item />
+        <app-search-item
+          (searchValue)="getSearchItem($event)"
+          [placeholder]="placeholder"
+        />
       </div>
       <div class="product-catalogue-items">
         <app-product-catalogue-item
-          *ngFor="let product of allProducts | filterProducts : currentTab"
+          *ngFor="
+            let product of allProducts
+              | filterProducts : currentTab : currentSearchKey
+          "
           [product]="product"
+          [searchKeyword]="highlightText"
           (addProductToCart)="addProductToCart($event)"
         />
       </div>

@@ -49,8 +49,10 @@ h3 {
   }
 }
 
-.slide-out-animation {
-  /* animation: slide-out 600ms ease-out; */
+.highlighted {
+  background-color: #7a5c4a;
+  color: white;
+  font-size: 16px;
 }
 
 @keyframes slide-out {

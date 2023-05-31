@@ -5,6 +5,7 @@ import { TabsComponent } from './components/tabs/tabs.component';
 import { TabItemComponent } from './components/tab-item/tab-item.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { SearchItemComponent } from './components/search-item/search-item.component';
+import { HighlightDirective } from './directives/highlight.directive';
 @NgModule({
   declarations: [
     CartButtonComponent,
@@ -12,6 +13,7 @@ import { SearchItemComponent } from './components/search-item/search-item.compon
     TabItemComponent,
     ProductDetailsComponent,
     SearchItemComponent,
+    HighlightDirective,
   ],
   imports: [CommonModule],
   exports: [

@@ -1,8 +1,8 @@
 <div class="tabs-container">
   <app-tab-item
     *ngFor="let tab of tabs"
-    [title]="tab"
-    [isActive]="activeTab === tab"
-    (click)="handleActiveTabOnChange(tab)"
+    [title]="tab.name + (tab.quantity ? ' (' + tab.quantity + ')' : '')"
+    [isActive]="activeTab === tab.name"
+    (click)="handleActiveTabOnChange(tab.name)"
   />
 </div>

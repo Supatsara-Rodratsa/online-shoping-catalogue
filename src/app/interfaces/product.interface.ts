@@ -17,3 +17,8 @@ export interface Cart extends Product {
   quantity: number;
   isUpdated?: boolean;
 }
+
+export interface Tab {
+  name: string;
+  quantity?: number;
+}

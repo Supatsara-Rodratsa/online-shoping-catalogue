@@ -21,6 +21,9 @@ export class ProductDetailsComponent {
   @Input()
   quantity = 0;
 
+  @Input()
+  searchKeyword = '';
+
   @Output()
   addItem = new EventEmitter<void>();
 

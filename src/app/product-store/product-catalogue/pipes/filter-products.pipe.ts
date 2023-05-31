@@ -5,12 +5,26 @@ import { Product } from 'src/app/interfaces/product.interface';
   name: 'filterProducts',
 })
 export class FilterProductsPipe implements PipeTransform {
-  transform(products: Product[], filterToken: string): Product[] {
-    if (filterToken === '' || filterToken === 'all') {
+  transform(
+    products: Product[],
+    categoryToken: string,
+    searchKeyword: string,
+  ): Product[] {
+    console.log(categoryToken);
+    console.log(searchKeyword);
+    if ((!categoryToken && !searchKeyword) || categoryToken === 'all') {
       return products;
     }
-    return products.filter((product) =>
-      product.category.toLowerCase().includes(filterToken.toLowerCase()),
+
+    const filterProductsByCategory = products.filter((product) =>
+      product.category.toLowerCase().includes(categoryToken.toLowerCase()),
     );
+
+    if (searchKeyword) {
+      return filterProductsByCategory.filter((product) =>
+        product.title.toLowerCase().includes(searchKeyword.toLowerCase()),
+      );
+    }
+    return filterProductsByCategory;
   }
 }
