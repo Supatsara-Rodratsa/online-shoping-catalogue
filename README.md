@@ -4,9 +4,38 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Overview 🎉
 
-The purpose of this project is to create the main page that will feature a simple grid of products, being each product featured by a card.
+### Iteration 1: Creating Online Shop Catalogue
 
-Each card will feature the product name, the product price and a _Add to cart_ CTA button. Upon clicking on the _add to cart_ button, the product will be added to a side element enlisting all the items added to the cart. After adding new items to the cart, the total amount rendered on the lower right corner should be updated.
+Creating the main page that will feature a simple grid of products, being each product featured by a card.
+
+#### Requirements ✨
+
+- Creating product catalogue item that contains product details
+- Each catalogue item will have CTA button to add the product to the product cart
+- Creating product catalogue to show all the product card
+- Creating product cart item to show details of product and quantity
+- Creating product cart to show all cart items
+- Showing total amount
+
+### Iteration 2: Adding search functionalities
+
+Providing navigation and search helpers to help users filtering the product item
+
+#### Requirements ✨
+
+- Introducing _Tab_ navigation to dynamically enlist all different product categories in the app
+- Implementing a filter by keyword
+  - The placeholder should change to reflect the current selected category from Tab
+  - The filtering should start with any keyword longer than 3 chars
+- Highlight the substring on each product name by referring to the keyword from the search component
+
+### Iteration 3: Adding pagination functionalities
+
+Provide paginated browsing functionalities
+
+#### Requirements ✨
+
+- Creating _Pagination_ component to inject number of items and page size
 
 ## Development server 🪄
 
