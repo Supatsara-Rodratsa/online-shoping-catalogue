@@ -17,16 +17,21 @@ export class HighlightDirective implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if ('searchKeyword' in changes) {
-      const innerHTML = (this.el.nativeElement as HTMLElement).textContent;
-      if (innerHTML) {
+      const defaultText = (this.el.nativeElement as HTMLElement).textContent;
+
+      if (defaultText) {
         if (this.searchKeyword === '') {
-          this.el.nativeElement.innerHTML = innerHTML;
+          this.el.nativeElement.innerHTML = defaultText;
         } else {
           const regex = new RegExp(this.searchKeyword, 'gi');
-          const highlightText = innerHTML?.replace(regex, (match: string) => {
+          const highlightText = defaultText?.replace(regex, (match: string) => {
             return `<mark class="highlighted">${match}</mark>`;
           });
           this.el.nativeElement.innerHTML = highlightText;
+          console.log(
+            this.el.nativeElement.innerHTML,
+            'this.el.nativeElement.innerHTML',
+          );
         }
       }
     }

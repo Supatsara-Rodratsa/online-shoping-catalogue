@@ -7,7 +7,9 @@ import { Tab, Product } from 'src/app/interfaces/product.interface';
 export class CategoriesPipe implements PipeTransform {
   transform(
     products: Product[],
-    token: 'includeCountedItems' | 'excludeCountedItems',
+    token:
+      | 'includeCountedItems'
+      | 'excludeCountedItems' = 'excludeCountedItems',
   ): Tab[] {
     const categoryCountMap = new Map<string, number>();
 
