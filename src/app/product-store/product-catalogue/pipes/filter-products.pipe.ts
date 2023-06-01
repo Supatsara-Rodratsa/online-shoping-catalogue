@@ -1,5 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Product } from 'src/app/interfaces/product.interface';
+import {
+  FilterProduct,
+  Pagination,
+  Product,
+} from 'src/app/interfaces/product.interface';
 
 @Pipe({
   name: 'filterProducts',
@@ -9,20 +13,67 @@ export class FilterProductsPipe implements PipeTransform {
     products: Product[],
     categoryToken: string,
     searchKeyword?: string,
-  ): Product[] {
-    if ((!categoryToken || categoryToken === 'all') && !searchKeyword) {
-      return products;
+    paginationSetting?: Pagination,
+  ): FilterProduct {
+    // Return all products
+    if (categoryToken === 'all' && !searchKeyword) {
+      return {
+        filterItems: this.handlePagination(products, paginationSetting),
+        totalItems: products.length,
+      };
     }
 
-    const filterProductsByCategory = products.filter((product) =>
-      product.category.toLowerCase().includes(categoryToken.toLowerCase()),
+    // Filter Product by categories
+    const filterProductsByCategory = this.filterProductByCategory(
+      products,
+      categoryToken,
     );
 
+    // Handle Search Item
     if (searchKeyword) {
-      return filterProductsByCategory.filter((product) =>
-        product.title.toLowerCase().includes(searchKeyword.toLowerCase()),
+      const filterItems = this.filterProductBySearchKeyword(
+        categoryToken === 'all' ? products : filterProductsByCategory,
+        searchKeyword,
       );
+
+      return {
+        filterItems: this.handlePagination(filterItems, paginationSetting),
+        totalItems: filterItems.length,
+      };
     }
-    return filterProductsByCategory;
+
+    return {
+      filterItems: this.handlePagination(
+        filterProductsByCategory,
+        paginationSetting,
+      ),
+      totalItems: filterProductsByCategory.length,
+    };
+  }
+
+  private filterProductByCategory(products: Product[], category: string) {
+    return products.filter(
+      (product) => product.category.toLowerCase() === category.toLowerCase(),
+    );
+  }
+
+  private filterProductBySearchKeyword(products: Product[], keyword: string) {
+    return products.filter((product) => {
+      return product.title.toLowerCase().includes(keyword.toLowerCase());
+    });
+  }
+
+  private handlePagination(
+    products: Product[],
+    paginationSetting?: Pagination,
+  ) {
+    if (paginationSetting) {
+      const { pageSize, currentPage } = paginationSetting;
+      const startIndex = (currentPage - 1) * pageSize;
+      const endIndex = startIndex + pageSize;
+
+      return products.slice(startIndex, endIndex);
+    }
+    return products;
   }
 }

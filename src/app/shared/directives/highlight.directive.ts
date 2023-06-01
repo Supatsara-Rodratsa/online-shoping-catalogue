@@ -1,4 +1,5 @@
 import {
+  AfterContentInit,
   Directive,
   ElementRef,
   Input,
@@ -9,7 +10,7 @@ import {
 @Directive({
   selector: '[appHighlight]',
 })
-export class HighlightDirective implements OnChanges {
+export class HighlightDirective implements OnChanges, AfterContentInit {
   @Input('appHighlight')
   searchKeyword = '';
 
@@ -17,22 +18,26 @@ export class HighlightDirective implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if ('searchKeyword' in changes) {
-      const defaultText = (this.el.nativeElement as HTMLElement).textContent;
+      this.highlightText();
+    }
+  }
 
-      if (defaultText) {
-        if (this.searchKeyword === '') {
-          this.el.nativeElement.innerHTML = defaultText;
-        } else {
-          const regex = new RegExp(this.searchKeyword, 'gi');
-          const highlightText = defaultText?.replace(regex, (match: string) => {
-            return `<mark class="highlighted">${match}</mark>`;
-          });
-          this.el.nativeElement.innerHTML = highlightText;
-          console.log(
-            this.el.nativeElement.innerHTML,
-            'this.el.nativeElement.innerHTML',
-          );
-        }
+  ngAfterContentInit(): void {
+    this.highlightText();
+  }
+
+  private highlightText() {
+    const defaultText = (this.el.nativeElement as HTMLHeadingElement)
+      ?.textContent;
+    if (defaultText) {
+      if (this.searchKeyword === '') {
+        this.el.nativeElement.innerHTML = defaultText;
+      } else {
+        const regex = new RegExp(this.searchKeyword, 'gi');
+        const highlightText = defaultText?.replace(regex, (match: string) => {
+          return `<mark class="highlighted">${match}</mark>`;
+        });
+        this.el.nativeElement.innerHTML = highlightText;
       }
     }
   }

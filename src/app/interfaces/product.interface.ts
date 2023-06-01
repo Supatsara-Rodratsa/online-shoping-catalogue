@@ -22,3 +22,13 @@ export interface Tab {
   name: string;
   quantity?: number;
 }
+
+export interface Pagination {
+  currentPage: number;
+  pageSize: number;
+}
+
+export interface FilterProduct {
+  filterItems: Product[];
+  totalItems: number;
+}

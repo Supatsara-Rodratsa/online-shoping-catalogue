@@ -12,27 +12,39 @@
           [placeholder]="placeholder"
         />
       </div>
-      <div class="product-catalogue-items">
+      <div>
         <ng-container
           *ngIf="
             allProducts
               | filterProducts
                 : currentTab
-                : currentSearchKey as filteredProducts
+                : currentSearchKey
+                : { pageSize: itemsPerPage, currentPage } as filteredProducts
           "
         >
-          <ng-container *ngIf="filteredProducts.length > 0; else elseBlock"
-            ><app-product-catalogue-item
-              *ngFor="let product of filteredProducts"
-              [product]="product"
-              [searchKeyword]="highlightText"
-              (addProductToCart)="addProductToCart($event)"
-          /></ng-container>
-          <ng-template #elseBlock
-            ><div class="empty-product-catalogue">
-              <p>Product Not Found</p>
-            </div></ng-template
-          >
+          <div class="product-catalogue-items">
+            <ng-container
+              *ngIf="filteredProducts.filterItems.length > 0; else elseBlock"
+              ><app-product-catalogue-item
+                *ngFor="let product of filteredProducts.filterItems"
+                [product]="product"
+                [searchKeyword]="highlightText"
+                (addProductToCart)="addProductToCart($event)"
+            /></ng-container>
+            <ng-template #elseBlock
+              ><div class="empty-product-catalogue">
+                <p>Product Not Found</p>
+              </div></ng-template
+            >
+          </div>
+
+          <app-pagination
+            *ngIf="filteredProducts.totalItems > 0"
+            [currentPage]="currentPage"
+            [pageSize]="itemsPerPage"
+            [totalItems]="filteredProducts.totalItems"
+            (pageChanged)="handlePaginationOnChanged($event)"
+          />
         </ng-container>
       </div>
     </div>

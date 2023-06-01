@@ -23,6 +23,7 @@ import { PaginationModule } from './components/pagination/pagination.module';
     ProductDetailsComponent,
     SearchItemComponent,
     TabsComponent,
+    PaginationComponent,
   ],
 })
 export class SharedModule {}

@@ -10,13 +10,17 @@ export class ProductCatalogueComponent {
   @Input()
   allProducts: Product[] = [];
 
+  @Input()
+  itemsPerPage = 5;
+
   @Output()
   handleAddingProductToCart = new EventEmitter<Product>();
 
-  currentTab = '';
+  currentTab = 'all';
   currentSearchKey = '';
   highlightText = '';
   placeholder = 'Search';
+  currentPage = 1;
 
   addProductToCart(product: Product) {
     this.handleAddingProductToCart.emit(product);
@@ -25,11 +29,17 @@ export class ProductCatalogueComponent {
   getSelectedTab(selectedTab: string) {
     this.currentTab = selectedTab;
     this.updatePlaceholder();
+    this.clearCurrentPage();
+    this.highlightText =
+      this.currentSearchKey.length > 3
+        ? this.currentSearchKey
+        : this.highlightText;
   }
 
   getSearchItem(searchKey: string) {
     this.highlightText = searchKey;
     this.currentSearchKey = searchKey.length > 3 ? searchKey : '';
+    if (searchKey.length > 3) this.clearCurrentPage();
   }
 
   updatePlaceholder() {
@@ -38,5 +48,13 @@ export class ProductCatalogueComponent {
     } else {
       this.placeholder = 'Search';
     }
+  }
+
+  handlePaginationOnChanged(currentPage: number) {
+    this.currentPage = currentPage;
+  }
+
+  clearCurrentPage() {
+    this.currentPage = 1;
   }
 }

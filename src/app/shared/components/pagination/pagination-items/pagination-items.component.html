@@ -1,1 +1,31 @@
-<p>pagination-items works!</p>
+<div class="pagination-item">
+  <app-pagination-arrow
+    variant="first"
+    [disabled]="currentPage === 1"
+    (click)="handlePaginationArrowOnClicked('first')"
+  />
+  <app-pagination-arrow
+    variant="prev"
+    [disabled]="currentPage === 1"
+    (click)="handlePaginationArrowOnClicked('prev')"
+  />
+  <div class="pagination-number-container">
+    <app-pagination-number
+      [isActive]="currentPage === page"
+      *ngFor="let page of getPageRange(totalPages)"
+      (click)="handlePaginationNumberOnClicked(page)"
+      >{{ page }}</app-pagination-number
+    >
+  </div>
+
+  <app-pagination-arrow
+    variant="next"
+    [disabled]="currentPage === totalPages"
+    (click)="handlePaginationArrowOnClicked('next')"
+  />
+  <app-pagination-arrow
+    variant="last"
+    [disabled]="currentPage === totalPages"
+    (click)="handlePaginationArrowOnClicked('last')"
+  />
+</div>

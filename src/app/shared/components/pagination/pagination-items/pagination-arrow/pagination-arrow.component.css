@@ -1,0 +1,19 @@
+.pagination-arrow-container {
+  padding: 8px;
+  border-radius: 4px;
+  border: none;
+  color: var(--text-color);
+  transition: all 100ms;
+  text-transform: uppercase;
+}
+
+.pagination-arrow-container:hover:not(:disabled) {
+  color: white;
+  background-color: var(--secondary-color);
+  cursor: pointer;
+}
+
+.pagination-arrow-container:disabled {
+  color: var(--gray-color);
+  background-color: var(--disabled-color);
+}

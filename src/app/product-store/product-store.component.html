@@ -3,6 +3,7 @@
     <app-product-catalogue
       class="product-catalogue"
       [allProducts]="products"
+      [itemsPerPage]="5"
       (handleAddingProductToCart)="addCartItem($event)"
     />
     <app-product-cart

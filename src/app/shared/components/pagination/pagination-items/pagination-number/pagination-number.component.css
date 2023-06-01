@@ -1,0 +1,22 @@
+.pagination-number-container {
+  border-radius: 100%;
+  border: none;
+  color: var(--text-color);
+  transition: all 100ms;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pagination-number-container:hover:not(.active) {
+  color: white;
+  background-color: var(--secondary-color);
+  cursor: pointer;
+}
+
+.active {
+  color: white;
+  background-color: var(--secondary-color);
+}

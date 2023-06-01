@@ -8,4 +8,10 @@ import { Component, Input } from '@angular/core';
 export class PaginationArrowComponent {
   @Input()
   variant: 'prev' | 'next' | 'first' | 'last' = 'prev';
+
+  @Input()
+  name = '';
+
+  @Input()
+  disabled = false;
 }
