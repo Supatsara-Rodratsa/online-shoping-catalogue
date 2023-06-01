@@ -1,16 +1,21 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 import { Cart, Product } from '../interfaces/product.interface';
 import { ajax } from 'rxjs/ajax';
+import { APP_API_ENDPOINT } from '../app.setting';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductService {
-  private products$ = ajax.getJSON<Product[]>('/assets/mocks/products.json');
+  private products$;
   private cartItems = new BehaviorSubject<Map<number, Cart>>(
     new Map<number, Cart>(),
   );
+
+  constructor(@Inject(APP_API_ENDPOINT) private appApiEndpoint: string) {
+    this.products$ = ajax.getJSON<Product[]>(this.appApiEndpoint);
+  }
 
   getAllProducts(): Observable<Product[]> {
     return this.products$;
