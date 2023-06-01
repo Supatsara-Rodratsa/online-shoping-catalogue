@@ -1,2 +1,1 @@
-export const PRODUCT_SERVICE_API =
-  'http://localhost:4200/assets/mocks/products.json';
+export const PRODUCT_SERVICE_API = '/assets/mocks/products.json';
