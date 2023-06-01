@@ -23,10 +23,10 @@ export class HighlightDirective implements OnChanges {
           this.el.nativeElement.innerHTML = innerHTML;
         } else {
           const regex = new RegExp(this.searchKeyword, 'gi');
-          const newText = innerHTML?.replace(regex, (match: string) => {
+          const highlightText = innerHTML?.replace(regex, (match: string) => {
             return `<mark class="highlighted">${match}</mark>`;
           });
-          this.el.nativeElement.innerHTML = newText;
+          this.el.nativeElement.innerHTML = highlightText;
         }
       }
     }
