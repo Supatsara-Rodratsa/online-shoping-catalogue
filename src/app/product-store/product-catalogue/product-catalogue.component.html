@@ -17,8 +17,8 @@
           *ngIf="
             allProducts
               | filterProducts
-                : currentTab
-                : currentSearchKey
+                : currentSelectedCategory
+                : currentSearchKeyword
                 : { pageSize: itemsPerPage, currentPage } as filteredProducts
           "
         >

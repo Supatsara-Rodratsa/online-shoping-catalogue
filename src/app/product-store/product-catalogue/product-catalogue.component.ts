@@ -16,8 +16,8 @@ export class ProductCatalogueComponent {
   @Output()
   handleAddingProductToCart = new EventEmitter<Product>();
 
-  currentTab = 'all';
-  currentSearchKey = '';
+  currentSelectedCategory = 'all';
+  currentSearchKeyword = '';
   highlightText = '';
   placeholder = 'Search';
   currentPage = 1;
@@ -27,24 +27,24 @@ export class ProductCatalogueComponent {
   }
 
   getSelectedTab(selectedTab: string) {
-    this.currentTab = selectedTab;
+    this.currentSelectedCategory = selectedTab;
     this.updatePlaceholder();
     this.clearCurrentPage();
     this.highlightText =
-      this.currentSearchKey.length > 3
-        ? this.currentSearchKey
+      this.currentSearchKeyword.length > 3
+        ? this.currentSearchKeyword
         : this.highlightText;
   }
 
   getSearchItem(searchKey: string) {
     this.highlightText = searchKey;
-    this.currentSearchKey = searchKey.length > 3 ? searchKey : '';
+    this.currentSearchKeyword = searchKey.length > 3 ? searchKey : '';
     if (searchKey.length > 3) this.clearCurrentPage();
   }
 
   updatePlaceholder() {
-    if (this.currentTab && this.currentTab != 'all') {
-      this.placeholder = `Filter ${this.currentTab} product by keyword`;
+    if (this.currentSelectedCategory && this.currentSelectedCategory != 'all') {
+      this.placeholder = `Filter ${this.currentSelectedCategory} product by keyword`;
     } else {
       this.placeholder = 'Search';
     }
