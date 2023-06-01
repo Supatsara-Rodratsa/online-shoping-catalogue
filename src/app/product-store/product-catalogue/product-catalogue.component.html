@@ -13,7 +13,7 @@
         />
       </div>
       <div>
-        <ng-container
+        <!-- <ng-container
           *ngIf="
             allProducts
               | filterProducts
@@ -21,7 +21,8 @@
                 : currentSearchKeyword
                 : { pageSize: itemsPerPage, currentPage } as filteredProducts
           "
-        >
+        > -->
+        <ng-container *ngIf="filterProducts$ | async as filteredProducts">
           <div class="product-catalogue-items">
             <ng-container
               *ngIf="filteredProducts.filterItems.length > 0; else elseBlock"

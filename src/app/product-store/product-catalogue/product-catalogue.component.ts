@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Product } from 'src/app/interfaces/product.interface';
+import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-product-catalogue',
@@ -16,11 +17,17 @@ export class ProductCatalogueComponent {
   @Output()
   handleAddingProductToCart = new EventEmitter<Product>();
 
+  filterProducts$;
   currentSelectedCategory = 'all';
   currentSearchKeyword = '';
   highlightText = '';
   placeholder = 'Search';
   currentPage = 1;
+
+  constructor(private productService: ProductService) {
+    this.filterAllProducts();
+    this.filterProducts$ = this.productService.getAllFilterProducts();
+  }
 
   addProductToCart(product: Product) {
     this.handleAddingProductToCart.emit(product);
@@ -34,12 +41,22 @@ export class ProductCatalogueComponent {
       this.currentSearchKeyword.length > 3
         ? this.currentSearchKeyword
         : this.highlightText;
+    this.filterAllProducts();
   }
 
   getSearchItem(searchKey: string) {
     this.highlightText = searchKey;
     this.currentSearchKeyword = searchKey.length > 3 ? searchKey : '';
     if (searchKey.length > 3) this.clearCurrentPage();
+    this.filterAllProducts();
+  }
+
+  filterAllProducts() {
+    this.productService.filterProducts(
+      this.currentSelectedCategory,
+      this.currentSearchKeyword,
+      { pageSize: this.itemsPerPage, currentPage: this.currentPage },
+    );
   }
 
   updatePlaceholder() {
@@ -52,6 +69,7 @@ export class ProductCatalogueComponent {
 
   handlePaginationOnChanged(currentPage: number) {
     this.currentPage = currentPage;
+    this.filterAllProducts();
   }
 
   clearCurrentPage() {
