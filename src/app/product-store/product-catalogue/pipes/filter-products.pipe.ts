@@ -8,11 +8,9 @@ export class FilterProductsPipe implements PipeTransform {
   transform(
     products: Product[],
     categoryToken: string,
-    searchKeyword: string,
+    searchKeyword?: string,
   ): Product[] {
-    console.log(categoryToken);
-    console.log(searchKeyword);
-    if ((!categoryToken && !searchKeyword) || categoryToken === 'all') {
+    if ((!categoryToken || categoryToken === 'all') && !searchKeyword) {
       return products;
     }
 

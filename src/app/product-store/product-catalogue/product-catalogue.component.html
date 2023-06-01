@@ -1,7 +1,7 @@
 <div class="product-catalogue-container">
   <h1>Products Catalogue</h1>
   <ng-container *ngIf="allProducts.length > 0; else elseBlock">
-    <div>
+    <div class="product-catalogue">
       <div class="product-catalogue-header">
         <app-tabs
           [tabs]="allProducts | categories : 'includeCountedItems'"
