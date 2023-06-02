@@ -81,49 +81,17 @@ export class ProductService {
   ): void {
     this.products$
       .pipe(
-        map((products) => {
-          const isAllCategories = category === 'all';
-          // Return all products
-          if (isAllCategories && !keyword) {
-            return {
-              filterItems: this.handlePagination(products, paginationSetting),
-              totalItems: products.length,
-            };
-          }
-
-          const filterProductsByCategory = this.filterProductByCategory(
-            products,
-            category,
-          );
-
-          // Filter Search product by keyword
-          if (keyword) {
-            const filterItems = this.filterProductByKeyword(
-              isAllCategories ? products : filterProductsByCategory,
-              keyword,
-            );
-
-            return {
-              filterItems: this.handlePagination(
-                filterItems,
-                paginationSetting,
-              ),
-              totalItems: filterItems.length,
-            };
-          }
-
-          // Filter by categories
-          return {
-            filterItems: this.handlePagination(
-              filterProductsByCategory,
-              paginationSetting,
-            ),
-            totalItems: filterProductsByCategory.length,
-          };
-        }),
+        map((products) => this.filterProductByCategory(products, category)),
+        map((products) => this.filterProductByKeyword(products, keyword)),
       )
       .subscribe((filteredProducts) => {
-        this.filteredProductsSubject.next(filteredProducts);
+        this.filteredProductsSubject.next({
+          filterItems: this.handlePagination(
+            filteredProducts,
+            paginationSetting,
+          ),
+          totalItems: filteredProducts.length,
+        });
       });
   }
 
@@ -139,6 +107,7 @@ export class ProductService {
     products: Product[],
     category: string,
   ): Product[] {
+    if (category == 'all') return products;
     return products.filter(
       (product) => product.category.toLowerCase() === category.toLowerCase(),
     );
@@ -146,8 +115,9 @@ export class ProductService {
 
   private filterProductByKeyword(
     products: Product[],
-    keyword: string,
+    keyword: string | undefined,
   ): Product[] {
+    if (!keyword || keyword == '') return products;
     return products.filter((product) =>
       product.title.toLowerCase().includes(keyword.toLowerCase()),
     );
