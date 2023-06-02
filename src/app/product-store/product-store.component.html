@@ -3,8 +3,17 @@
     <app-product-catalogue
       class="product-catalogue"
       [allProducts]="products"
+      [filterProducts]="filterProducts$ | async"
       [itemsPerPage]="5"
+      [currentSelectedCategory]="currentSelectedCategory"
+      [currentSearchKeyword]="currentSearchKeyword"
+      [highlightText]="highlightText"
+      [placeholder]="placeholder"
+      [currentPage]="currentPage"
       (handleAddingProductToCart)="addCartItem($event)"
+      (updateSelectedCategory)="updateOnSelectedCategoryChanged($event)"
+      (updateKeyword)="updateOnSearchChanged($event)"
+      (updatePageChanged)="updateOnPageChanged($event)"
     />
     <app-product-cart
       [allCartItems]="(allCartItems$ | async) ?? []"

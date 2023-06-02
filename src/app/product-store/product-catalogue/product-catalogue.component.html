@@ -13,21 +13,12 @@
         />
       </div>
       <div>
-        <!-- <ng-container
-          *ngIf="
-            allProducts
-              | filterProducts
-                : currentSelectedCategory
-                : currentSearchKeyword
-                : { pageSize: itemsPerPage, currentPage } as filteredProducts
-          "
-        > -->
-        <ng-container *ngIf="filterProducts$ | async as filteredProducts">
+        <ng-container *ngIf="filterProducts">
           <div class="product-catalogue-items">
             <ng-container
-              *ngIf="filteredProducts.filterItems.length > 0; else elseBlock"
+              *ngIf="filterProducts.filterItems.length > 0; else elseBlock"
               ><app-product-catalogue-item
-                *ngFor="let product of filteredProducts.filterItems"
+                *ngFor="let product of filterProducts.filterItems"
                 [product]="product"
                 [searchKeyword]="highlightText"
                 (addProductToCart)="addProductToCart($event)"
@@ -40,10 +31,10 @@
           </div>
 
           <app-pagination
-            *ngIf="filteredProducts.totalItems > 0"
+            *ngIf="filterProducts.totalItems > 0"
             [currentPage]="currentPage"
             [pageSize]="itemsPerPage"
-            [totalItems]="filteredProducts.totalItems"
+            [totalItems]="filterProducts.totalItems"
             (pageChanged)="handlePaginationOnChanged($event)"
           />
         </ng-container>

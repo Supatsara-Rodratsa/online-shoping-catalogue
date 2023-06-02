@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Product } from 'src/app/interfaces/product.interface';
-import { ProductService } from 'src/app/services/product.service';
+import { FilterProduct, Product } from 'src/app/interfaces/product.interface';
 
 @Component({
   selector: 'app-product-catalogue',
@@ -12,67 +11,51 @@ export class ProductCatalogueComponent {
   allProducts: Product[] = [];
 
   @Input()
+  filterProducts: FilterProduct | null = null;
+
+  @Input()
   itemsPerPage = 5;
+
+  @Input()
+  currentSelectedCategory = 'all';
+
+  @Input()
+  currentSearchKeyword = '';
+
+  @Input()
+  highlightText = '';
+
+  @Input()
+  placeholder = '';
+
+  @Input()
+  currentPage = 1;
 
   @Output()
   handleAddingProductToCart = new EventEmitter<Product>();
 
-  filterProducts$;
-  currentSelectedCategory = 'all';
-  currentSearchKeyword = '';
-  highlightText = '';
-  placeholder = 'Search';
-  currentPage = 1;
+  @Output()
+  updateSelectedCategory = new EventEmitter<string>();
 
-  constructor(private productService: ProductService) {
-    this.filterAllProducts();
-    this.filterProducts$ = this.productService.getAllFilterProducts();
-  }
+  @Output()
+  updateKeyword = new EventEmitter<string>();
+
+  @Output()
+  updatePageChanged = new EventEmitter<number>();
 
   addProductToCart(product: Product) {
     this.handleAddingProductToCart.emit(product);
   }
 
   getSelectedTab(selectedTab: string) {
-    this.currentSelectedCategory = selectedTab;
-    this.updatePlaceholder();
-    this.clearCurrentPage();
-    this.highlightText =
-      this.currentSearchKeyword.length > 3
-        ? this.currentSearchKeyword
-        : this.highlightText;
-    this.filterAllProducts();
+    this.updateSelectedCategory.emit(selectedTab);
   }
 
   getSearchItem(searchKey: string) {
-    this.highlightText = searchKey;
-    this.currentSearchKeyword = searchKey.length > 3 ? searchKey : '';
-    if (searchKey.length > 3) this.clearCurrentPage();
-    this.filterAllProducts();
-  }
-
-  filterAllProducts() {
-    this.productService.filterProducts(
-      this.currentSelectedCategory,
-      this.currentSearchKeyword,
-      { pageSize: this.itemsPerPage, currentPage: this.currentPage },
-    );
-  }
-
-  updatePlaceholder() {
-    if (this.currentSelectedCategory && this.currentSelectedCategory != 'all') {
-      this.placeholder = `Filter ${this.currentSelectedCategory} product by keyword`;
-    } else {
-      this.placeholder = 'Search';
-    }
+    this.updateKeyword.emit(searchKey);
   }
 
   handlePaginationOnChanged(currentPage: number) {
-    this.currentPage = currentPage;
-    this.filterAllProducts();
-  }
-
-  clearCurrentPage() {
-    this.currentPage = 1;
+    this.updatePageChanged.emit(currentPage);
   }
 }
