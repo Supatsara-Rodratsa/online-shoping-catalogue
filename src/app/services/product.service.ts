@@ -107,7 +107,7 @@ export class ProductService {
     products: Product[],
     category: string,
   ): Product[] {
-    if (category == 'all') return products;
+    if (!category || category == 'all') return products;
     return products.filter(
       (product) => product.category.toLowerCase() === category.toLowerCase(),
     );
