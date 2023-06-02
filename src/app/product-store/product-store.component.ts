@@ -24,11 +24,11 @@ export class ProductStoreComponent {
   itemsPerPage = 5;
 
   constructor(private productService: ProductService) {
-    this.allProducts$ = this.productService.getAllProducts();
-    this.allCartItems$ = this.productService.getAllCartItems();
-    this.totalPrice$ = this.productService.getTotalPrice();
+    this.allProducts$ = this.productService.allProducts;
+    this.allCartItems$ = this.productService.allCartItems;
+    this.totalPrice$ = this.productService.totalPrice;
     this.filterAllProducts();
-    this.filterProducts$ = this.productService.getAllFilterProducts();
+    this.filterProducts$ = this.productService.allFilterProducts;
   }
 
   addCartItem(selectedProduct: Product) {

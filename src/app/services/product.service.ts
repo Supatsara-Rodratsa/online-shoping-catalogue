@@ -26,22 +26,22 @@ export class ProductService {
     this.products$ = ajax.getJSON<Product[]>(this.appApiEndpoint);
   }
 
-  getAllProducts(): Observable<Product[]> {
+  get allProducts(): Observable<Product[]> {
     return this.products$;
   }
 
-  getAllCartItems(): Observable<Cart[]> {
+  get allCartItems(): Observable<Cart[]> {
     return this.cartItems.pipe(map((items) => Array.from(items.values())));
   }
 
-  getTotalPrice(): Observable<number> {
+  get totalPrice(): Observable<number> {
     return this.cartItems.pipe(
       map((items) => Array.from(items.values())),
       map((items) => this.calculateTotalPrice(items)),
     );
   }
 
-  getAllFilterProducts(): Observable<FilterProduct> {
+  get allFilterProducts(): Observable<FilterProduct> {
     return this.filteredProductsSubject.asObservable();
   }
 
