@@ -2,11 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ProductCatalogueItemComponent } from './product-catalogue-item/product-catalogue-item.component';
-import { CategoriesPipe } from './pipes/categories.pipe';
 
 @NgModule({
-  declarations: [ProductCatalogueItemComponent, CategoriesPipe],
+  declarations: [ProductCatalogueItemComponent],
   imports: [CommonModule, SharedModule],
-  exports: [ProductCatalogueItemComponent, CategoriesPipe],
+  exports: [ProductCatalogueItemComponent],
 })
 export class ProductCatalogueModule {}

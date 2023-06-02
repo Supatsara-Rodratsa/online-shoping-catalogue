@@ -1,12 +1,9 @@
 <div class="product-catalogue-container">
   <h1>Products Catalogue</h1>
-  <ng-container *ngIf="allProducts.length > 0; else elseBlock">
+  <ng-container *ngIf="categories && categories.length > 0; else elseBlock">
     <div class="product-catalogue">
       <div class="product-catalogue-header">
-        <app-tabs
-          [tabs]="allProducts | categories : 'includeCountedItems'"
-          (selectedTab)="getSelectedTab($event)"
-        />
+        <app-tabs [tabs]="categories" (selectedTab)="getSelectedTab($event)" />
         <app-search-item
           (searchValue)="getSearchItem($event)"
           [placeholder]="placeholder"
@@ -20,7 +17,7 @@
               ><app-product-catalogue-item
                 *ngFor="let product of filterProducts.filterItems"
                 [product]="product"
-                [searchKeyword]="highlightText"
+                [searchKeyword]="currentSearchKeyword"
                 (addProductToCart)="addProductToCart($event)"
             /></ng-container>
             <ng-template #elseBlock

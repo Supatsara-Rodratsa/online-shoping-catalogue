@@ -1,28 +1,15 @@
-import {
-  AfterContentInit,
-  Directive,
-  ElementRef,
-  Input,
-  OnChanges,
-  SimpleChanges,
-} from '@angular/core';
+import { AfterViewChecked, Directive, ElementRef, Input } from '@angular/core';
 
 @Directive({
   selector: '[appHighlight]',
 })
-export class HighlightDirective implements OnChanges, AfterContentInit {
+export class HighlightDirective implements AfterViewChecked {
   @Input('appHighlight')
   searchKeyword = '';
 
   constructor(private el: ElementRef) {}
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if ('searchKeyword' in changes) {
-      this.highlightText();
-    }
-  }
-
-  ngAfterContentInit(): void {
+  ngAfterViewChecked(): void {
     this.highlightText();
   }
 

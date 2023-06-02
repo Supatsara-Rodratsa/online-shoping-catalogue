@@ -1,34 +1,83 @@
 import { Inject, Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, map } from 'rxjs';
+import { BehaviorSubject, Observable, combineLatest, map } from 'rxjs';
 import {
   Cart,
   FilterProduct,
   Pagination,
   Product,
+  Tab,
 } from '../interfaces/product.interface';
 import { ajax } from 'rxjs/ajax';
-import { APP_API_ENDPOINT } from '../app.setting';
+import { APP_API_ENDPOINT, APP_PAGINATION_PAGE_SIZE } from '../app.setting';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductService {
-  private products$;
+  private products$ = ajax.getJSON<Product[]>(this.appApiEndpoint);
   private cartItems = new BehaviorSubject<Map<number, Cart>>(
     new Map<number, Cart>(),
   );
-  private filteredProductsSubject = new BehaviorSubject<FilterProduct>({
-    filterItems: [],
-    totalItems: 0,
-  });
 
-  constructor(@Inject(APP_API_ENDPOINT) private appApiEndpoint: string) {
-    this.products$ = ajax.getJSON<Product[]>(this.appApiEndpoint);
-  }
+  category = new BehaviorSubject<string>('all');
+  keyword = new BehaviorSubject<string>('');
+  page = new BehaviorSubject<number>(1);
 
-  get allProducts(): Observable<Product[]> {
-    return this.products$;
-  }
+  categories$ = this.products$.pipe(
+    map((products) => {
+      const namedTabsMap = new Map<string, Tab>();
+      products.forEach((product) => {
+        const tab = namedTabsMap.get(product.category);
+        if (tab) {
+          namedTabsMap.set(product.category, {
+            name: product.category,
+            quantity: (tab.quantity || 0) + 1,
+          });
+        } else {
+          namedTabsMap.set(product.category, {
+            name: product.category,
+            quantity: 1,
+          });
+        }
+      });
+      return Array.from(namedTabsMap.values());
+    }),
+  );
+
+  filteredProducts$ = combineLatest([
+    this.products$,
+    this.category.asObservable(),
+    this.keyword.asObservable(),
+    this.page.asObservable(),
+  ]).pipe(
+    map(([products, category, keyword, page]) => {
+      const filterProductByCategory = this.filterProductByCategory(
+        products,
+        category,
+      );
+      const filterProductByKeyword = this.filterProductByKeyword(
+        filterProductByCategory,
+        keyword,
+      );
+      const filterProductByPagination = this.handlePagination(
+        filterProductByKeyword,
+        {
+          pageSize: this.appPaginationPageSize,
+          currentPage: page,
+        },
+      );
+
+      return {
+        filterItems: filterProductByPagination,
+        totalItems: filterProductByKeyword.length,
+      } as FilterProduct;
+    }),
+  );
+
+  constructor(
+    @Inject(APP_API_ENDPOINT) private appApiEndpoint: string,
+    @Inject(APP_PAGINATION_PAGE_SIZE) private appPaginationPageSize: number,
+  ) {}
 
   get allCartItems(): Observable<Cart[]> {
     return this.cartItems.pipe(map((items) => Array.from(items.values())));
@@ -39,10 +88,6 @@ export class ProductService {
       map((items) => Array.from(items.values())),
       map((items) => this.calculateTotalPrice(items)),
     );
-  }
-
-  get allFilterProducts(): Observable<FilterProduct> {
-    return this.filteredProductsSubject.asObservable();
   }
 
   addCartItem(product: Product): void {
@@ -74,27 +119,6 @@ export class ProductService {
     this.cartItems.next(new Map<number, Cart>());
   }
 
-  filterProducts(
-    category: string,
-    keyword?: string,
-    paginationSetting?: Pagination,
-  ): void {
-    this.products$
-      .pipe(
-        map((products) => this.filterProductByCategory(products, category)),
-        map((products) => this.filterProductByKeyword(products, keyword)),
-      )
-      .subscribe((filteredProducts) => {
-        this.filteredProductsSubject.next({
-          filterItems: this.handlePagination(
-            filteredProducts,
-            paginationSetting,
-          ),
-          totalItems: filteredProducts.length,
-        });
-      });
-  }
-
   private calculateTotalPrice(items: Cart[]): number {
     let totalPrice = 0;
     totalPrice = items.reduce((total: number, item: Cart) => {
@@ -117,7 +141,7 @@ export class ProductService {
     products: Product[],
     keyword: string | undefined,
   ): Product[] {
-    if (!keyword || keyword == '') return products;
+    if (!keyword || keyword == '' || keyword.length <= 3) return products;
     return products.filter((product) =>
       product.title.toLowerCase().includes(keyword.toLowerCase()),
     );

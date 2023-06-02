@@ -12,23 +12,21 @@ import { ProductService } from '../services/product.service';
  * Handling everything in service
  */
 export class ProductStoreComponent {
-  allProducts$;
   totalPrice$;
   allCartItems$;
   filterProducts$;
+  categories$;
+
   currentSelectedCategory = 'all';
   currentSearchKeyword = '';
-  highlightText = '';
   placeholder = 'Search';
   currentPage = 1;
-  itemsPerPage = 5;
 
   constructor(private productService: ProductService) {
-    this.allProducts$ = this.productService.allProducts;
     this.allCartItems$ = this.productService.allCartItems;
     this.totalPrice$ = this.productService.totalPrice;
-    this.filterAllProducts();
-    this.filterProducts$ = this.productService.allFilterProducts;
+    this.filterProducts$ = this.productService.filteredProducts$;
+    this.categories$ = this.productService.categories$;
   }
 
   addCartItem(selectedProduct: Product) {
@@ -43,38 +41,26 @@ export class ProductStoreComponent {
     this.productService.clearCartItems();
   }
 
-  filterAllProducts() {
-    this.productService.filterProducts(
-      this.currentSelectedCategory,
-      this.currentSearchKeyword,
-      { pageSize: this.itemsPerPage, currentPage: this.currentPage },
-    );
-  }
-
   updateOnSelectedCategoryChanged(selectedCategory: string) {
+    this.productService.category.next(selectedCategory);
     this.currentSelectedCategory = selectedCategory;
-    this.highlightText =
-      this.currentSearchKeyword.length > 3
-        ? this.currentSearchKeyword
-        : this.highlightText;
     this.initCurrentPage();
-    this.filterAllProducts();
   }
 
   updateOnSearchChanged(keyword: string) {
-    this.highlightText = keyword;
-    this.currentSearchKeyword = keyword.length > 3 ? keyword : '';
+    this.productService.keyword.next(keyword);
+    this.currentSearchKeyword = keyword;
     if (keyword.length > 3) this.initCurrentPage();
-    this.filterAllProducts();
   }
 
   updateOnPageChanged(currentPage: number) {
     this.currentPage = currentPage;
-    this.filterAllProducts();
+    this.productService.page.next(this.currentPage);
   }
 
   initCurrentPage() {
     this.currentPage = 1;
+    this.productService.page.next(this.currentPage);
   }
 
   updatePlaceholder() {

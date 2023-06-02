@@ -1,5 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FilterProduct, Product } from 'src/app/interfaces/product.interface';
+import {
+  FilterProduct,
+  Product,
+  Tab,
+} from 'src/app/interfaces/product.interface';
 
 @Component({
   selector: 'app-product-catalogue',
@@ -8,7 +12,7 @@ import { FilterProduct, Product } from 'src/app/interfaces/product.interface';
 })
 export class ProductCatalogueComponent {
   @Input()
-  allProducts: Product[] = [];
+  categories: Tab[] = [];
 
   @Input()
   filterProducts: FilterProduct | null = null;
@@ -21,9 +25,6 @@ export class ProductCatalogueComponent {
 
   @Input()
   currentSearchKeyword = '';
-
-  @Input()
-  highlightText = '';
 
   @Input()
   placeholder = '';
