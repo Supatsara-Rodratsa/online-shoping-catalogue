@@ -1,0 +1,170 @@
+[
+  {
+    "id": 1,
+    "title": "Fjallraven - Sac à dos Foldsack No. 1, pour ordinateur portable de 15 pouces",
+    "price": 109.95,
+    "description": "Votre sac parfait pour un usage quotidien et des promenades en forêt. Rangez votre ordinateur portable (jusqu'à 15 pouces) dans la pochette rembourrée, votre quotidien",
+    "category": "vêtements pour hommes",
+    "image": "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
+    "rating": {
+      "rate": 3.9,
+      "count": 120
+    }
+  },
+  {
+    "id": 2,
+    "title": "T-shirts casual ajustés Premium pour hommes",
+    "price": 22.3,
+    "description": "Style ajusté, manches longues raglan contrastées, patte de boutonnage Henley à trois boutons, tissu léger et doux pour une respirabilité et un confort optimal. Et des chemises solides avec col rond cousu pour une durabilité et une coupe parfaite pour une tenue décontractée et les fans de baseball inconditionnels. L'encolure ronde de style Henley comprend une patte de boutonnage à trois boutons.",
+    "category": "vêtements pour hommes",
+    "image": "https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg",
+    "rating": {
+      "rate": 4.1,
+      "count": 259
+    }
+  },
+  {
+    "id": 3,
+    "title": "Veste en coton pour hommes",
+    "price": 55.99,
+    "description": "Superbes vestes d'extérieur pour le printemps/l'automne/l'hiver, adaptées à de nombreuses occasions, telles que le travail, la randonnée, le camping, l'escalade en montagne, le cyclisme, les voyages ou d'autres activités de plein air. Bon choix de cadeau pour vous ou un membre de votre famille. Un amour chaleureux pour votre père, votre mari ou votre fils en cette action de grâce ou le jour de Noël.",
+    "category": "vêtements pour hommes",
+    "image": "https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg",
+    "rating": {
+      "rate": 4.7,
+      "count": 500
+    }
+  },
+  {
+    "id": 4,
+    "title": "Slim Fit décontracté pour hommes",
+    "price": 15.99,
+    "description": "La couleur peut légèrement varier entre l'écran et la réalité. / Veuillez noter que les morphologies varient d'une personne à l'autre, par conséquent, des informations détaillées sur les tailles doivent être consultées ci-dessous dans la description du produit.",
+    "category": "vêtements pour hommes",
+    "image": "https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg",
+    "rating": {
+      "rate": 2.1,
+      "count": 430
+    }
+  },
+  {
+    "id": 5,
+    "title": "Bracelet chaîne à station de dragon en or et argent pour femmes John Hardy Legends Naga",
+    "price": 695,
+    "description": "De notre collection Legends, le Naga a été inspiré par le dragon d'eau mythique qui protège la perle de l'océan. Portez-le vers l'intérieur pour être comblé d'amour et d'abondance, ou vers l'extérieur pour vous protéger.",
+    "category": "bijoux",
+    "image": "https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_.jpg",
+    "rating": {
+      "rate": 4.6,
+      "count": 400
+    }
+  },
+  {
+    "id": 6,
+    "title": "Petite bague en or massif avec micropavage",
+    "price": 168,
+    "description": "Satisfaction garantie. Retournez ou échangez toute commande dans les 30 jours. Conçu et vendu par Hafeez Center aux États-Unis. Satisfaction garantie. Retournez ou échangez toute commande dans les 30 jours.",
+    "category": "bijoux",
+    "image": "https://fakestoreapi.com/img/61sbMiUnoGL._AC_UL640_QL65_ML3_.jpg",
+    "rating": {
+      "rate": 3.9,
+      "count": 70
+    }
+  },
+  {
+    "id": 7,
+    "title": "Bague de fiançailles solitaire en diamant classique en plaqué or blanc",
+    "price": 9.99,
+    "description": "Bague de promesse en diamant solitaire créée classique pour elle. Des cadeaux pour gâter davantage votre amour pour les fiançailles, le mariage, l'anniversaire, la Saint-Valentin...",
+    "category": "bijoux",
+    "image": "https://fakestoreapi.com/img/71YAIFU48IL._AC_UL640_QL65_ML3_.jpg",
+    "rating": {
+      "rate": 3,
+      "count": 400
+    }
+  },
+  {
+    "id": 8,
+    "title": "Boucles d'oreilles en acier inoxydable plaqué or rose Pierced Owl Double",
+    "price": 10.99,
+    "description": "Boucles d'oreilles à tunnel double plaqué or rose. Fabriqué en acier inoxydable 316L",
+    "category": "bijoux",
+    "image": "https://fakestoreapi.com/img/51UDEzMJVpL._AC_UL640_QL65_ML3_.jpg",
+    "rating": {
+      "rate": 1.9,
+      "count": 100
+    }
+  },
+  {
+    "id": 9,
+    "title": "Disque dur externe portable WD Elements 2 To - USB 3.0",
+    "price": 64,
+    "description": "Compatibilité USB 3.0 et USB 2.0. Transferts de données rapides. Amélioration des performances du PC. Grande capacité ; compatibilité formatée NTFS pour Windows 10, Windows 8.1, Windows 7 ; un reformatage peut être nécessaire pour d'autres systèmes d'exploitation ; la compatibilité peut varier en fonction de la configuration matérielle et du système d'exploitation de l'utilisateur",
+    "category": "électronique",
+    "image": "https://fakestoreapi.com/img/61IBBVJvSDL._AC_SY879_.jpg",
+    "rating": {
+      "rate": 3.3,
+      "count": 203
+    }
+  },
+  {
+    "id": 10,
+    "title": "SanDisk SSD PLUS 1 To SSD interne - SATA III 6 Gb/s",
+    "price": 109,
+    "description": "Mise à niveau facile pour un démarrage plus rapide, une extinction plus rapide, un chargement et une réponse des applications plus rapides (par rapport au disque dur SATA 2,5\" 5400 tr/min ; basé sur les spécifications publiées et les tests de référence internes utilisant les scores PCMark vantage) Améliore les performances d'écriture en rafale, ce qui le rend idéal pour les charges de travail PC typiques. Équilibre parfait entre performances et fiabilité. Vitesses de lecture/écriture allant jusqu'à 535 Mo/s/450 Mo/s (basées sur des tests internes ; les performances peuvent varier en fonction de la capacité du disque, du périphérique hôte, du système d'exploitation et de l'application)",
+    "category": "électronique",
+    "image": "https://fakestoreapi.com/img/61U7T1koQqL._AC_SX679_.jpg",
+    "rating": {
+      "rate": 2.9,
+      "count": 470
+    }
+  },
+  {
+    "id": 11,
+    "title": "Disque SSD Silicon Power 256 Go 3D NAND A55 SLC Cache Performance Boost SATA III 2,5\"",
+    "price": 109,
+    "description": "La mémoire flash 3D NAND permet d'obtenir des vitesses de transfert élevées. Des vitesses de transfert remarquables qui permettent un démarrage plus rapide et des performances système globales améliorées. La technologie avancée de cache SLC permet d'optimiser les performances et d'augmenter la durée de vie. Design fin de 7 mm adapté aux Ultrabooks et aux ordinateurs portables ultra-minces. Prend en charge la commande TRIM, la technologie de collecte des déchets (Garbage Collection), le RAID et la ECC (vérification et correction d'erreur) pour offrir des performances optimisées et une fiabilité accrue.",
+    "category": "électronique",
+    "image": "https://fakestoreapi.com/img/71kWymZ+c+L._AC_SX679_.jpg",
+    "rating": {
+      "rate": 4.8,
+      "count": 319
+    }
+  },
+  {
+    "id": 12,
+    "title": "WD 4TB Gaming Drive Fonctionne avec le disque dur externe portable Playstation 4",
+    "price": 114,
+    "description": "Élargissez votre expérience de jeu sur PS4. Jouez n'importe où. Installation rapide et facile. Design élégant avec grande capacité. Garantie limitée du fabricant de 3 ans",
+    "category": "électronique",
+    "image": "https://fakestoreapi.com/img/61mtL65D4cL._AC_SX679_.jpg",
+    "rating": {
+      "rate": 4.8,
+      "count": 400
+    }
+  },
+  {
+    "id": 13,
+    "title": "Acer SB220Q bi Écran IPS ultra-fin Full HD (1920 x 1080) de 21,5 pouces",
+    "price": 599,
+    "description": "Écran IPS panoramique Full HD (1920 x 1080) de 21,5 pouces avec technologie Radeon FreeSync. Pas de compatibilité pour le support VESA. Taux de rafraîchissement : 75 Hz - Utilisation du port HDMI. Design sans cadre, ultra-fin, temps de réponse de 4 ms, panneau IPS. Rapport d'aspect : 16:9. Couleurs prises en charge : 16,7 millions de couleurs. Luminosité : 250 nit. Angle d'inclinaison : de -5 degrés à 15 degrés. Angle de vision horizontal : 178 degrés. Angle de vision vertical : 178 degrés. 75 hertz",
+    "category": "électronique",
+    "image": "https://fakestoreapi.com/img/81QpkIctqPL._AC_SX679_.jpg",
+    "rating": {
+      "rate": 2.9,
+      "count": 250
+    }
+  },
+  {
+    "id": 14,
+    "title": "Moniteur de jeu incurvé Samsung CHG90 144 Hz 49 pouces (LC49HG90DMNXZA) - Écran super ultra-large QLED",
+    "price": 999.99,
+    "description": "MONITEUR DE JEU SUPER ULTRA-LARGE DE 49 POUCES, RAPPORT D'ASPECT 32:9, COURBÉ, avec deux écrans de 27 pouces côte à côte. TECHNOLOGIE DE POINTS QUANTIQUES (QLED), prise en charge HDR et calibrage d'usine offrant des couleurs et un contraste d'un réalisme et d'une précision stupéfiants. TAUX DE RAFRAÎCHISSEMENT ÉLEVÉ DE 144 HZ et temps de réponse ultra-rapide de 1 ms pour éliminer le flou de mouvement, les images fantômes et réduire la latence d'entrée",
+    "category": "électronique",
+    "image": "https://fakestoreapi.com/img/81Zt42ioCgL._AC_SX679_.jpg",
+    "rating": {
+      "rate": 2.2,
+      "count": 140
+    }
+  }
+]
