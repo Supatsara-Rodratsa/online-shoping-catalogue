@@ -1,0 +1,11 @@
+.product-store-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+@media only screen and (max-width: 1164px) {
+  .product-store-container {
+    flex-wrap: wrap;
+  }
+}

@@ -1,9 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
-import { ProductStoreModule } from './product-store/product-store.module';
+import { ProductStoreModule } from './product/product-store/product-store.module';
 import { SharedModule } from './shared/shared.module';
-import { ProductStoreComponent } from './product-store/product-store.component';
+import { ProductStoreComponent } from './product/product-store/product-store.component';
 
 describe('AppComponent', () => {
   beforeEach(() =>

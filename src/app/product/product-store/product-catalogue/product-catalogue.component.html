@@ -1,29 +1,20 @@
 <div class="product-catalogue-container">
-  <div class="product-catalogue-header">
-    <h1>Products Catalogue</h1>
-    <div class="button r">
-      <input
-        #currentValue
-        type="checkbox"
-        class="checkbox"
-        [(ngModel)]="currentLanguage"
-        (ngModelChange)="handleLanguageChanged($event)"
-      />
-      <div class="knobs"></div>
-      <div class="layer"></div>
-    </div>
-  </div>
-  <ng-container *ngIf="categories && categories.length > 0; else elseBlock">
+  <ng-container *ngIf="categories$ | async as categories; else elseBlock">
     <div class="product-catalogue">
       <div class="product-catalogue-header">
-        <app-tabs [tabs]="categories" (selectedTab)="getSelectedTab($event)" />
+        <app-tabs
+          [tabs]="categories"
+          (selectedTab)="updateOnSelectedCategoryChanged($event)"
+        />
         <app-search-item
-          (searchValue)="getSearchItem($event)"
+          (searchValue)="updateOnSearchChanged($event)"
           [placeholder]="placeholder"
         />
       </div>
       <div>
-        <ng-container *ngIf="filterProducts">
+        <ng-container
+          *ngIf="filterProducts$ | async as filterProducts; else elseBlock"
+        >
           <div class="product-catalogue-items">
             <ng-container
               *ngIf="filterProducts.filterItems.length > 0; else elseBlock"
@@ -31,7 +22,7 @@
                 *ngFor="let product of filterProducts.filterItems"
                 [product]="product"
                 [searchKeyword]="currentSearchKeyword"
-                (addProductToCart)="addProductToCart($event)"
+                (addProductToCart)="addCartItem($event)"
             /></ng-container>
             <ng-template #elseBlock
               ><div class="empty-product-catalogue">
@@ -43,9 +34,9 @@
           <app-pagination
             *ngIf="filterProducts.totalItems > 0"
             [currentPage]="currentPage"
-            [pageSize]="itemsPerPage"
+            [pageSize]="pageSize"
             [totalItems]="filterProducts.totalItems"
-            (pageChanged)="handlePaginationOnChanged($event)"
+            (pageChanged)="updateOnPageChanged($event)"
           />
         </ng-container>
       </div>

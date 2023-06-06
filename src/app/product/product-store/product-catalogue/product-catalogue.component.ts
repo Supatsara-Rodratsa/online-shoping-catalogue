@@ -1,21 +1,16 @@
 import { Component } from '@angular/core';
-import { Product } from '../interfaces/product.interface';
-import { ProductService } from '../services/product.service';
-import { LanguageService } from '../services/language.service';
+import { Product } from 'src/app/interfaces/product.interface';
+import { LanguageService } from 'src/app/services/language.service';
+import { ProductService } from 'src/app/services/product.service';
 import { LANGUAGE } from 'src/settings';
 
 @Component({
-  selector: 'app-product-store',
-  templateUrl: './product-store.component.html',
-  styleUrls: ['./product-store.component.css'],
+  selector: 'app-product-catalogue',
+  templateUrl: './product-catalogue.component.html',
+  styleUrls: ['./product-catalogue.component.css'],
 })
-/**
- * Stateful Component
- * Handling everything in service
- */
-export class ProductStoreComponent {
+export class ProductCatalogueComponent {
   totalPrice$;
-  allCartItems$;
   filterProducts$;
   categories$;
 
@@ -23,16 +18,17 @@ export class ProductStoreComponent {
   currentSearchKeyword = '';
   placeholder = 'Search';
   currentPage = 1;
-  currentLanguage = LANGUAGE.EN;
+  currentLanguage = this.languageService.language === LANGUAGE.FR;
+  pageSize = 0;
 
   constructor(
     private productService: ProductService,
     private languageService: LanguageService,
   ) {
-    this.allCartItems$ = this.productService.allCartItems;
     this.totalPrice$ = this.productService.totalPrice;
     this.filterProducts$ = this.productService.filteredProducts$;
     this.categories$ = this.productService.categories$;
+    this.pageSize = this.productService.pageSize.value;
   }
 
   addCartItem(selectedProduct: Product) {
@@ -77,7 +73,7 @@ export class ProductStoreComponent {
     }
   }
 
-  updateCurrentLanguage(lang: string) {
-    this.languageService.setLanguage(lang);
+  updateCurrentLanguage(lang: boolean) {
+    this.languageService.setLanguage(lang ? LANGUAGE.FR : LANGUAGE.EN);
   }
 }

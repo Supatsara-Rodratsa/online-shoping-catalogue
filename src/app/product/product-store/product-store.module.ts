@@ -4,25 +4,31 @@ import { ProductCatalogueComponent } from './product-catalogue/product-catalogue
 import { ProductCartComponent } from './product-cart/product-cart.component';
 import { ProductCartModule } from './product-cart/product-cart.module';
 import { ProductCatalogueModule } from './product-catalogue/product-catalogue.module';
-import { SharedModule } from '../shared/shared.module';
-import { ProductService } from '../services/product.service';
-import { APP_SETTINGS } from '../app.setting';
-import { AppSettingService } from '../services/app-setting.service';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from '../../shared/shared.module';
+import { ProductService } from '../../services/product.service';
+import { APP_SETTINGS } from '../../app.setting';
+import { AppSettingService } from '../../services/app-setting.service';
+import { ProductCheckoutComponent } from './product-checkout/product-checkout.component';
 
 function initializeAppSetting(appSettingService: AppSettingService) {
   return appSettingService.appSetting$;
 }
 @NgModule({
-  declarations: [ProductCatalogueComponent, ProductCartComponent],
-  exports: [ProductCatalogueComponent, ProductCartComponent],
+  declarations: [
+    ProductCatalogueComponent,
+    ProductCartComponent,
+    ProductCheckoutComponent,
+  ],
+  exports: [
+    ProductCatalogueComponent,
+    ProductCartComponent,
+    ProductCheckoutComponent,
+  ],
   imports: [
     CommonModule,
     SharedModule,
     ProductCartModule,
     ProductCatalogueModule,
-    FormsModule,
-    ReactiveFormsModule,
   ],
   providers: [
     {
