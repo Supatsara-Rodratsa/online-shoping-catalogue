@@ -18,12 +18,11 @@ export class AppSettingService {
 
   constructor(private languageService: LanguageService) {
     languageService.currentLanguage$.subscribe((lang) => {
-      console.log(lang);
       let dataSourceURL = PRODUCT_SERVICE_API.EN;
       let language = LANGUAGE.EN;
       if (languageService.language === LANGUAGE.FR) {
         dataSourceURL = PRODUCT_SERVICE_API.FR;
-        language = LANGUAGE.FR;
+        language = lang;
       }
 
       this.appSetting.next({

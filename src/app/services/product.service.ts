@@ -35,6 +35,7 @@ export class ProductService implements OnDestroy {
   category = new BehaviorSubject<string>('all');
   keyword = new BehaviorSubject<string>('');
   page = new BehaviorSubject<number>(1);
+  pageSize = new BehaviorSubject<number>(10);
 
   constructor(
     @Inject(APP_SETTINGS)
@@ -64,7 +65,7 @@ export class ProductService implements OnDestroy {
 
   private initializeProductService(appSetting: AppSetting) {
     this.updateProducts(appSetting.dataSourceURL);
-
+    this.pageSize.next(appSetting.pageSize);
     this.categories$ = this.products.pipe(
       map((products) => {
         let totalItem = 0;
