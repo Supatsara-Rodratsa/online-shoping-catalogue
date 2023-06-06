@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Product } from '../interfaces/product.interface';
 import { ProductService } from '../services/product.service';
+import { LanguageService } from '../services/language.service';
+import { LANGUAGE } from 'src/settings';
 
 @Component({
   selector: 'app-product-store',
@@ -21,8 +23,12 @@ export class ProductStoreComponent {
   currentSearchKeyword = '';
   placeholder = 'Search';
   currentPage = 1;
+  currentLanguage = LANGUAGE.EN;
 
-  constructor(private productService: ProductService) {
+  constructor(
+    private productService: ProductService,
+    private languageService: LanguageService,
+  ) {
     this.allCartItems$ = this.productService.allCartItems;
     this.totalPrice$ = this.productService.totalPrice;
     this.filterProducts$ = this.productService.filteredProducts$;
@@ -69,5 +75,9 @@ export class ProductStoreComponent {
     } else {
       this.placeholder = 'Search';
     }
+  }
+
+  updateCurrentLanguage(lang: string) {
+    this.languageService.setLanguage(lang);
   }
 }

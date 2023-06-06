@@ -4,6 +4,7 @@ import {
   Product,
   Tab,
 } from 'src/app/interfaces/product.interface';
+import { LANGUAGE } from 'src/settings';
 
 @Component({
   selector: 'app-product-catalogue',
@@ -32,6 +33,10 @@ export class ProductCatalogueComponent {
   @Input()
   currentPage = 1;
 
+  @Input() set currentLanguage(value: string) {
+    this.language = value !== LANGUAGE.EN;
+  }
+
   @Output()
   handleAddingProductToCart = new EventEmitter<Product>();
 
@@ -43,6 +48,15 @@ export class ProductCatalogueComponent {
 
   @Output()
   updatePageChanged = new EventEmitter<number>();
+
+  @Output()
+  updateCurrentLanguage = new EventEmitter<string>();
+
+  language = true;
+
+  handleLanguageChanged(checked: boolean) {
+    this.updateCurrentLanguage.emit(checked ? LANGUAGE.FR : LANGUAGE.EN);
+  }
 
   addProductToCart(product: Product) {
     this.handleAddingProductToCart.emit(product);

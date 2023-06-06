@@ -11,10 +11,12 @@
       [currentSearchKeyword]="currentSearchKeyword"
       [placeholder]="placeholder"
       [currentPage]="currentPage"
+      [currentLanguage]="currentLanguage"
       (handleAddingProductToCart)="addCartItem($event)"
       (updateSelectedCategory)="updateOnSelectedCategoryChanged($event)"
       (updateKeyword)="updateOnSearchChanged($event)"
       (updatePageChanged)="updateOnPageChanged($event)"
+      (updateCurrentLanguage)="updateCurrentLanguage($event)"
     />
     <app-product-cart
       [allCartItems]="(allCartItems$ | async) ?? []"

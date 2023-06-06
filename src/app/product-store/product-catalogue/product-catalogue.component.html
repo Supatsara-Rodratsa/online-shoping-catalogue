@@ -1,5 +1,18 @@
 <div class="product-catalogue-container">
-  <h1>Products Catalogue</h1>
+  <div class="product-catalogue-header">
+    <h1>Products Catalogue</h1>
+    <div class="button r">
+      <input
+        #currentValue
+        type="checkbox"
+        class="checkbox"
+        [(ngModel)]="currentLanguage"
+        (ngModelChange)="handleLanguageChanged($event)"
+      />
+      <div class="knobs"></div>
+      <div class="layer"></div>
+    </div>
+  </div>
   <ng-container *ngIf="categories && categories.length > 0; else elseBlock">
     <div class="product-catalogue">
       <div class="product-catalogue-header">

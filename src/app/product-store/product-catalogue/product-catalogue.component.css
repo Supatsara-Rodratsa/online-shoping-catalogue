@@ -41,3 +41,75 @@
   flex-direction: column;
   gap: 24px;
 }
+
+.button.r,
+.button.r .layer {
+  border-radius: 100px;
+}
+.knobs,
+.layer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.button {
+  position: relative;
+  top: 50%;
+  width: 74px;
+  height: 35px;
+  overflow: hidden;
+}
+
+.checkbox {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 3;
+}
+
+.knobs {
+  z-index: 2;
+}
+
+.layer {
+  width: 100%;
+  background-color: var(--secondary-color);
+  transition: 0.3s ease all;
+  z-index: 1;
+}
+
+.button .knobs:before {
+  content: 'EN';
+  position: absolute;
+  top: 5px;
+  left: 4px;
+  width: 18px;
+  height: 7px;
+  color: #fff;
+  font-size: 10px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 0.8;
+  padding: 9px 4px;
+  background-color: var(--primary-color);
+  border-radius: 100%;
+  color: var(--text-color);
+}
+
+.button .checkbox:checked + .knobs:before {
+  content: 'FR';
+  left: 43px;
+}
+
+.button .knobs,
+.button .knobs:before,
+.button .layer {
+  transition: 0.3s ease all;
+}

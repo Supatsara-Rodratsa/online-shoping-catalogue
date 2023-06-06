@@ -1,6 +1,7 @@
 import { InjectionToken } from '@angular/core';
+import { AppSetting } from './interfaces/app.interface';
+import { Observable } from 'rxjs';
 
-export const APP_API_ENDPOINT = new InjectionToken<string>('APP_API_ENDPOINT');
-export const APP_PAGINATION_PAGE_SIZE = new InjectionToken<string>(
-  'APP_PAGINATION_PAGE_SIZE',
+export const APP_SETTINGS = new InjectionToken<Observable<AppSetting>>(
+  'APP_SETTINGS',
 );

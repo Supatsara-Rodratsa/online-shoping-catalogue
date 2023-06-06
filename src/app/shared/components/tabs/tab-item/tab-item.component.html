@@ -1,3 +1,4 @@
 <button class="tab-item-container" [class.isActive]="isActive">
-  {{ title }}
+  <span class="title">{{ title }}</span>
+  <span *ngIf="quantity"> ({{ quantity }})</span>
 </button>

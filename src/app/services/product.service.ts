@@ -1,5 +1,11 @@
-import { Inject, Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, combineLatest, map } from 'rxjs';
+import { Inject, Injectable, OnDestroy } from '@angular/core';
+import {
+  BehaviorSubject,
+  Observable,
+  Subscription,
+  combineLatest,
+  map,
+} from 'rxjs';
 import {
   Cart,
   FilterProduct,
@@ -8,76 +14,113 @@ import {
   Tab,
 } from '../interfaces/product.interface';
 import { ajax } from 'rxjs/ajax';
-import { APP_API_ENDPOINT, APP_PAGINATION_PAGE_SIZE } from '../app.setting';
+import { APP_SETTINGS } from '../app.setting';
+import { AppSetting } from '../interfaces/app.interface';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ProductService {
-  private products$ = ajax.getJSON<Product[]>(this.appApiEndpoint);
+export class ProductService implements OnDestroy {
+  private productSubscription: Subscription | undefined;
+  private appSettingSubscription: Subscription | undefined;
+  private products = new BehaviorSubject<Product[]>([]);
   private cartItems = new BehaviorSubject<Map<number, Cart>>(
     new Map<number, Cart>(),
   );
+
+  // Observable
+  categories$!: Observable<Tab[]>;
+  filteredProducts$!: Observable<FilterProduct>;
 
   category = new BehaviorSubject<string>('all');
   keyword = new BehaviorSubject<string>('');
   page = new BehaviorSubject<number>(1);
 
-  categories$ = this.products$.pipe(
-    map((products) => {
-      const namedTabsMap = new Map<string, Tab>();
-      products.forEach((product) => {
-        const tab = namedTabsMap.get(product.category);
-        if (tab) {
-          namedTabsMap.set(product.category, {
-            name: product.category,
-            quantity: (tab.quantity || 0) + 1,
-          });
-        } else {
-          namedTabsMap.set(product.category, {
-            name: product.category,
-            quantity: 1,
-          });
-        }
-      });
-      return Array.from(namedTabsMap.values());
-    }),
-  );
-
-  filteredProducts$ = combineLatest([
-    this.products$,
-    this.category.asObservable(),
-    this.keyword.asObservable(),
-    this.page.asObservable(),
-  ]).pipe(
-    map(([products, category, keyword, page]) => {
-      const filterProductByCategory = this.filterProductByCategory(
-        products,
-        category,
-      );
-      const filterProductByKeyword = this.filterProductByKeyword(
-        filterProductByCategory,
-        keyword,
-      );
-      const filterProductByPagination = this.handlePagination(
-        filterProductByKeyword,
-        {
-          pageSize: this.appPaginationPageSize,
-          currentPage: page,
-        },
-      );
-
-      return {
-        filterItems: filterProductByPagination,
-        totalItems: filterProductByKeyword.length,
-      } as FilterProduct;
-    }),
-  );
-
   constructor(
-    @Inject(APP_API_ENDPOINT) private appApiEndpoint: string,
-    @Inject(APP_PAGINATION_PAGE_SIZE) private appPaginationPageSize: number,
-  ) {}
+    @Inject(APP_SETTINGS)
+    private appSetting$: Observable<AppSetting>,
+  ) {
+    this.appSettingSubscription = this.appSetting$.subscribe((appSetting) => {
+      if (appSetting) {
+        this.initializeProductService(appSetting);
+      } else {
+        console.error('APP_SETTINGS is not provided');
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    this.appSettingSubscription?.unsubscribe();
+    this.productSubscription?.unsubscribe();
+  }
+
+  private updateProducts(dataSourceURL: string): void {
+    this.productSubscription = ajax
+      .getJSON<Product[]>(dataSourceURL)
+      .subscribe((products) => {
+        this.products.next(products);
+      });
+  }
+
+  private initializeProductService(appSetting: AppSetting) {
+    this.updateProducts(appSetting.dataSourceURL);
+
+    this.categories$ = this.products.pipe(
+      map((products) => {
+        let totalItem = 0;
+        const namedTabsMap = new Map<string, Tab>();
+        products.forEach((product) => {
+          const tab = namedTabsMap.get(product.category);
+          if (tab) {
+            namedTabsMap.set(product.category, {
+              name: product.category,
+              quantity: (tab.quantity || 0) + 1,
+            });
+          } else {
+            namedTabsMap.set(product.category, {
+              name: product.category,
+              quantity: 1,
+            });
+          }
+          totalItem += 1;
+        });
+        return [
+          { name: 'all', quantity: totalItem },
+          ...Array.from(namedTabsMap.values()),
+        ];
+      }),
+    );
+
+    this.filteredProducts$ = combineLatest([
+      this.products.asObservable(),
+      this.category.asObservable(),
+      this.keyword.asObservable(),
+      this.page.asObservable(),
+    ]).pipe(
+      map(([products, category, keyword, page]) => {
+        const filterProductByCategory = this.filterProductByCategory(
+          products,
+          category,
+        );
+        const filterProductByKeyword = this.filterProductByKeyword(
+          filterProductByCategory,
+          keyword,
+        );
+        const filterProductByPagination = this.handlePagination(
+          filterProductByKeyword,
+          {
+            pageSize: appSetting.pageSize,
+            currentPage: page,
+          },
+        );
+
+        return {
+          filterItems: filterProductByPagination,
+          totalItems: filterProductByKeyword.length,
+        } as FilterProduct;
+      }),
+    );
+  }
 
   get allCartItems(): Observable<Cart[]> {
     return this.cartItems.pipe(map((items) => Array.from(items.values())));

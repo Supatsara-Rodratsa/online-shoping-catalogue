@@ -6,9 +6,13 @@ import { ProductCartModule } from './product-cart/product-cart.module';
 import { ProductCatalogueModule } from './product-catalogue/product-catalogue.module';
 import { SharedModule } from '../shared/shared.module';
 import { ProductService } from '../services/product.service';
-import { APP_API_ENDPOINT, APP_PAGINATION_PAGE_SIZE } from '../app.setting';
-import { PAGE_SIZE, PRODUCT_SERVICE_API } from 'src/settings';
+import { APP_SETTINGS } from '../app.setting';
+import { AppSettingService } from '../services/app-setting.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+function initializeAppSetting(appSettingService: AppSettingService) {
+  return appSettingService.appSetting$;
+}
 @NgModule({
   declarations: [ProductCatalogueComponent, ProductCartComponent],
   exports: [ProductCatalogueComponent, ProductCartComponent],
@@ -17,17 +21,16 @@ import { PAGE_SIZE, PRODUCT_SERVICE_API } from 'src/settings';
     SharedModule,
     ProductCartModule,
     ProductCatalogueModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [
+    {
+      provide: APP_SETTINGS,
+      useFactory: initializeAppSetting,
+      deps: [AppSettingService],
+    },
     ProductService,
-    {
-      provide: APP_API_ENDPOINT,
-      useValue: PRODUCT_SERVICE_API,
-    },
-    {
-      provide: APP_PAGINATION_PAGE_SIZE,
-      useValue: PAGE_SIZE,
-    },
   ],
 })
 export class ProductStoreModule {}

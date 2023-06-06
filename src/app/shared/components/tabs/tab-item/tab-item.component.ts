@@ -10,5 +10,8 @@ export class TabItemComponent {
   title = '';
 
   @Input()
+  quantity: number | null = null;
+
+  @Input()
   isActive = false;
 }
