@@ -14,7 +14,9 @@
       </div>
     </div>
     <ng-container *ngIf="loading$ | async; else elseBlock">
-      loading...
+      <div class="loading-container">
+        <div class="loader">Loading...</div>
+      </div>
     </ng-container>
     <ng-template #elseBlock>
       <router-outlet class="outlet-container" />

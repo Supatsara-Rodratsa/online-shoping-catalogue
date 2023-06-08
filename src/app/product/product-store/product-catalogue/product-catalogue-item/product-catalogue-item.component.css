@@ -1,7 +1,7 @@
 .product-catalogue-item-container {
   display: flex;
   flex-direction: column;
-  width: 300px;
+  width: 326px;
   height: 280px;
   overflow: hidden;
 }

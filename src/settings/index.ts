@@ -1,6 +1,6 @@
 export const PRODUCT_SERVICE_API = {
-  EN: '/assets/mocks/products.json',
-  FR: '/assets/mocks/products-fr.json',
+  EN: 'http://localhost:3000/products/en',
+  FR: 'http://localhost:3000/products/fr',
 };
 export const PAGE_SIZE = 5;
 

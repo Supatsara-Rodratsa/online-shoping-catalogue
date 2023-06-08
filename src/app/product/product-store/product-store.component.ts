@@ -67,6 +67,7 @@ export class ProductStoreComponent implements OnDestroy {
   }
 
   updateCurrentLanguage(lang: boolean) {
+    this.productService.category.next('all');
     this.languageService.setLanguage(lang ? LANGUAGE.FR : LANGUAGE.EN);
   }
 }

@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import {
   AbstractControl,
@@ -20,6 +21,7 @@ export class ProductCheckoutComponent {
 
   constructor(
     private router: Router,
+    private http: HttpClient,
     private productService: ProductService,
     private formBuilder: FormBuilder,
   ) {
@@ -69,8 +71,7 @@ export class ProductCheckoutComponent {
   }
 
   submitForm() {
-    this.productService.clearCartItems();
-    this.router.navigate(['success']);
+    if (this.isFormValid()) this.updateUserDetails();
   }
 
   isFormValid(): boolean {
@@ -119,5 +120,23 @@ export class ProductCheckoutComponent {
       return !countryControl.value ? 'is-invalid-selection' : '';
     }
     return '';
+  }
+
+  updateUserDetails() {
+    const requestBody = this.checkoutForm.value;
+    console.log(this.checkoutForm.value);
+
+    this.http.post('http://localhost:3000/order', requestBody).subscribe(
+      () => {
+        // Handle successful response from the backend
+        this.productService.clearCartItems();
+        this.router.navigate(['success']);
+      },
+      (error) => {
+        // Handle error from the backend
+        console.error('Error submitting form:', error);
+        // Optionally show an error message to the user
+      },
+    );
   }
 }
