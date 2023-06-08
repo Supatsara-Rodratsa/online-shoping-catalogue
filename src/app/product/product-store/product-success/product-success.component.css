@@ -1,0 +1,15 @@
+.product-success-container {
+  background-color: var(--disabled-color);
+  height: calc(100vh - 130px);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 32px;
+}
+
+.product-success-container p {
+  font-size: 18px;
+}
