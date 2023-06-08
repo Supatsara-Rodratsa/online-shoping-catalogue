@@ -178,8 +178,6 @@ export class ProductService {
       this.page.asObservable(),
     ]).pipe(
       map(([products, pageSize, category, keyword, page]) => {
-        console.log(products, 'products');
-
         const filterProductByCategory = this.filterProductByCategory(
           products,
           category,
