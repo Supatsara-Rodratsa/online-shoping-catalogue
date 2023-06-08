@@ -1,1 +1,148 @@
-<p>product-checkout works!</p>
+<div class="checkout-container" *ngIf="!!checkoutForm && !!addressForm">
+  <h2>Please enter your personal details</h2>
+  <form
+    (submit)="submitForm()"
+    [formGroup]="checkoutForm"
+    class="checkout-form-container"
+  >
+    <div class="details-container">
+      <div class="checkout-group">
+        <div class="form-group">
+          <label for="firstName">First Name</label>
+          <input
+            type="text"
+            id="firstName"
+            placeholder="First Name"
+            formControlName="firstName"
+          />
+          <span [ngClass]="isCheckoutFormControlInvalid('firstName')">
+            <ng-container
+              *ngTemplateOutlet="error; context: checkoutForm.get('firstName')"
+            ></ng-container>
+          </span>
+        </div>
+        <div class="form-group">
+          <label for="lastName">Last Name</label>
+          <input
+            type="text"
+            id="lastName"
+            placeholder="Last Name"
+            formControlName="lastName"
+          />
+          <span [ngClass]="isCheckoutFormControlInvalid('lastName')">
+            <ng-container
+              *ngTemplateOutlet="error; context: checkoutForm.get('lastName')"
+            ></ng-container>
+          </span>
+        </div>
+      </div>
+      <div class="checkout-group">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            placeholder="Email"
+            formControlName="email"
+          />
+          <span [ngClass]="isCheckoutFormControlInvalid('email')">
+            <ng-container
+              *ngTemplateOutlet="error; context: checkoutForm.get('email')"
+            ></ng-container>
+          </span>
+        </div>
+        <div class="form-group" formGroupName="address">
+          <label for="country">Country</label>
+          <div class="dropdown">
+            <select
+              id="country"
+              name="country"
+              formControlName="country"
+              (change)="validateStateControl()"
+              [ngClass]="selectedClass()"
+            >
+              <option value="" disabled selected>Country</option>
+              <option value="Italy">Italy</option>
+              <option value="Spain">Spain</option>
+              <option value="Thailand">Thailand</option>
+              <option value="United States">United States</option>
+            </select>
+            <div class="icon"></div>
+          </div>
+
+          <span [ngClass]="isAddressFormControlInvalid('country')">
+            <ng-container
+              *ngTemplateOutlet="error; context: addressForm.get('country')"
+            ></ng-container>
+          </span>
+        </div>
+      </div>
+      <div class="form-group" formGroupName="address">
+        <label for="address">Address</label>
+        <textarea
+          type="text"
+          id="address"
+          placeholder="Address"
+          formControlName="address"
+        ></textarea>
+        <span [ngClass]="isAddressFormControlInvalid('address')">
+          <ng-container
+            *ngTemplateOutlet="error; context: addressForm.get('address')"
+          ></ng-container>
+        </span>
+      </div>
+      <div class="checkout-group" formGroupName="address">
+        <div class="form-group">
+          <label for="zipCode">Zip Code</label>
+          <input
+            type="text"
+            id="zipCode"
+            placeholder="Zip Code"
+            formControlName="zipCode"
+          />
+          <span [ngClass]="isAddressFormControlInvalid('zipCode')">
+            <ng-container
+              *ngTemplateOutlet="error; context: addressForm.get('zipCode')"
+            ></ng-container>
+          </span>
+        </div>
+        <div class="form-group">
+          <label for="state">State</label>
+          <input
+            type="text"
+            id="state"
+            placeholder="State"
+            formControlName="state"
+          />
+          <span [ngClass]="isAddressFormControlInvalid('state')">
+            <ng-container
+              *ngTemplateOutlet="error; context: addressForm.get('state')"
+            ></ng-container>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="submit-container">
+      <div class="checkout-group term">
+        <input type="checkbox" id="terms" formControlName="terms" />
+        <p>I hereby accept the term of use of this site</p>
+      </div>
+      <span [ngClass]="isCheckoutFormControlInvalid('terms')">
+        <ng-container
+          *ngTemplateOutlet="error; context: checkoutForm.get('terms')"
+        ></ng-container>
+      </span>
+      <app-cart-button [isDisable]="!isFormValid()" variant="squared"
+        >Submit Detail</app-cart-button
+      >
+    </div>
+  </form>
+</div>
+
+<ng-template #error let-errors="errors"
+  ><span class="error-msg" *ngIf="errors?.required">This is required field</span
+  ><span class="error-msg" *ngIf="errors?.email">Invalid email address</span
+  ><span class="error-msg" *ngIf="errors?.pattern"
+    >Invalid input</span
+  ></ng-template
+>
