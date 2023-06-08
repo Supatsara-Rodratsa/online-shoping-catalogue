@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Product } from 'src/app/interfaces/product.interface';
 import { LanguageService } from 'src/app/services/language.service';
 import { ProductService } from 'src/app/services/product.service';
@@ -13,22 +14,23 @@ export class ProductCatalogueComponent {
   totalPrice$;
   filterProducts$;
   categories$;
+  pageSize$;
 
   currentSelectedCategory = 'all';
   currentSearchKeyword = '';
   placeholder = 'Search';
   currentPage = 1;
   currentLanguage = this.languageService.language === LANGUAGE.FR;
-  pageSize = 0;
 
   constructor(
     private productService: ProductService,
     private languageService: LanguageService,
+    private router: Router,
   ) {
     this.totalPrice$ = this.productService.totalPrice;
     this.filterProducts$ = this.productService.filteredProducts$;
     this.categories$ = this.productService.categories$;
-    this.pageSize = this.productService.pageSize.value;
+    this.pageSize$ = this.productService.pageSize$;
   }
 
   addCartItem(selectedProduct: Product) {
@@ -47,12 +49,14 @@ export class ProductCatalogueComponent {
     this.productService.category.next(selectedCategory);
     this.currentSelectedCategory = selectedCategory;
     this.initCurrentPage();
+    this.updateRouteURL();
   }
 
   updateOnSearchChanged(keyword: string) {
     this.productService.keyword.next(keyword);
     this.currentSearchKeyword = keyword;
     if (keyword.length > 3) this.initCurrentPage();
+    this.updateRouteURL();
   }
 
   updateOnPageChanged(currentPage: number) {
@@ -75,5 +79,15 @@ export class ProductCatalogueComponent {
 
   updateCurrentLanguage(lang: boolean) {
     this.languageService.setLanguage(lang ? LANGUAGE.FR : LANGUAGE.EN);
+  }
+
+  updateRouteURL() {
+    if (this.currentSearchKeyword) {
+      this.router.navigate([this.currentSelectedCategory], {
+        queryParams: { q: this.currentSearchKeyword },
+      });
+    } else {
+      this.router.navigate([this.currentSelectedCategory]);
+    }
   }
 }

@@ -34,7 +34,7 @@
           <app-pagination
             *ngIf="filterProducts.totalItems > 0"
             [currentPage]="currentPage"
-            [pageSize]="pageSize"
+            [pageSize]="(pageSize$ | async) || 0"
             [totalItems]="filterProducts.totalItems"
             (pageChanged)="updateOnPageChanged($event)"
           />
