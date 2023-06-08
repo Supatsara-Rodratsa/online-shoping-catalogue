@@ -1,11 +1,5 @@
-import { Inject, Injectable, OnDestroy } from '@angular/core';
-import {
-  BehaviorSubject,
-  Observable,
-  Subscription,
-  combineLatest,
-  map,
-} from 'rxjs';
+import { Inject, Injectable } from '@angular/core';
+import { BehaviorSubject, Observable, combineLatest, map, of } from 'rxjs';
 import {
   Cart,
   FilterProduct,
@@ -13,114 +7,55 @@ import {
   Product,
   Tab,
 } from '../interfaces/product.interface';
-import { ajax } from 'rxjs/ajax';
 import { APP_SETTINGS } from '../app.setting';
 import { AppSetting } from '../interfaces/app.interface';
+import { MetaDataService } from './meta-data.service';
 
-@Injectable({
-  providedIn: 'root',
-})
-export class ProductService implements OnDestroy {
-  private productSubscription: Subscription | undefined;
-  private appSettingSubscription: Subscription | undefined;
-  private products = new BehaviorSubject<Product[]>([]);
+@Injectable()
+export class ProductService {
   private cartItems = new BehaviorSubject<Map<number, Cart>>(
     new Map<number, Cart>(),
   );
 
-  // Observable
-  categories$!: Observable<Tab[]>;
+  /**
+   * All Observables using in Product Catalogue
+   */
   filteredProducts$!: Observable<FilterProduct>;
+  product$!: Observable<Product[]>;
+  categories$!: Observable<Tab[]>;
+  pageSize$ = of(0);
 
   category = new BehaviorSubject<string>('all');
   keyword = new BehaviorSubject<string>('');
   page = new BehaviorSubject<number>(1);
-  pageSize = new BehaviorSubject<number>(10);
 
   constructor(
+    private metaDataService: MetaDataService,
     @Inject(APP_SETTINGS)
     private appSetting$: Observable<AppSetting>,
   ) {
-    this.appSettingSubscription = this.appSetting$.subscribe((appSetting) => {
-      if (appSetting) {
-        this.initializeProductService(appSetting);
-      } else {
-        console.error('APP_SETTINGS is not provided');
-      }
-    });
+    this.initializeProductService();
   }
 
-  ngOnDestroy() {
-    this.appSettingSubscription?.unsubscribe();
-    this.productSubscription?.unsubscribe();
-  }
+  private initializeProductService() {
+    /**
+     * Get Updated Products from MetaData Service
+     * that is always updated when App Setting Token is changed
+     */
+    this.product$ = this.metaDataService.product$;
 
-  private updateProducts(dataSourceURL: string): void {
-    this.productSubscription = ajax
-      .getJSON<Product[]>(dataSourceURL)
-      .subscribe((products) => {
-        this.products.next(products);
-      });
-  }
+    /**
+     * Get Updated PageSize form App Setting Token for
+     * using in Product Catalogue Components
+     */
+    this.pageSize$ = this.appSetting$.pipe(map((setting) => setting.pageSize));
 
-  private initializeProductService(appSetting: AppSetting) {
-    this.updateProducts(appSetting.dataSourceURL);
-    this.pageSize.next(appSetting.pageSize);
-    this.categories$ = this.products.pipe(
-      map((products) => {
-        let totalItem = 0;
-        const namedTabsMap = new Map<string, Tab>();
-        products.forEach((product) => {
-          const tab = namedTabsMap.get(product.category);
-          if (tab) {
-            namedTabsMap.set(product.category, {
-              name: product.category,
-              quantity: (tab.quantity || 0) + 1,
-            });
-          } else {
-            namedTabsMap.set(product.category, {
-              name: product.category,
-              quantity: 1,
-            });
-          }
-          totalItem += 1;
-        });
-        return [
-          { name: 'all', quantity: totalItem },
-          ...Array.from(namedTabsMap.values()),
-        ];
-      }),
-    );
-
-    this.filteredProducts$ = combineLatest([
-      this.products.asObservable(),
-      this.category.asObservable(),
-      this.keyword.asObservable(),
-      this.page.asObservable(),
-    ]).pipe(
-      map(([products, category, keyword, page]) => {
-        const filterProductByCategory = this.filterProductByCategory(
-          products,
-          category,
-        );
-        const filterProductByKeyword = this.filterProductByKeyword(
-          filterProductByCategory,
-          keyword,
-        );
-        const filterProductByPagination = this.handlePagination(
-          filterProductByKeyword,
-          {
-            pageSize: appSetting.pageSize,
-            currentPage: page,
-          },
-        );
-
-        return {
-          filterItems: filterProductByPagination,
-          totalItems: filterProductByKeyword.length,
-        } as FilterProduct;
-      }),
-    );
+    /**
+     * Using CombineLatest to update Categories and Product Filtering
+     * and using in Product Catalogue Components
+     */
+    this.updateLatestCategories();
+    this.updateLatestProductsFiltering();
   }
 
   get allCartItems(): Observable<Cart[]> {
@@ -202,5 +137,71 @@ export class ProductService implements OnDestroy {
       return products.slice(startIndex, endIndex);
     }
     return products;
+  }
+
+  private categorizedProductItems(products: Product[]): Tab[] {
+    let totalItem = 0;
+    const namedTabsMap = new Map<string, Tab>();
+    products.forEach((product) => {
+      const tab = namedTabsMap.get(product.category);
+      if (tab) {
+        namedTabsMap.set(product.category, {
+          name: product.category,
+          quantity: (tab.quantity || 0) + 1,
+        });
+      } else {
+        namedTabsMap.set(product.category, {
+          name: product.category,
+          quantity: 1,
+        });
+      }
+      totalItem += 1;
+    });
+    return [
+      { name: 'all', quantity: totalItem },
+      ...Array.from(namedTabsMap.values()),
+    ];
+  }
+
+  private updateLatestCategories() {
+    this.categories$ = combineLatest([this.product$]).pipe(
+      map(([products]) => this.categorizedProductItems(products)),
+    );
+  }
+
+  private updateLatestProductsFiltering() {
+    this.filteredProducts$ = combineLatest([
+      this.product$,
+      this.pageSize$,
+      this.category.asObservable(),
+      this.keyword.asObservable(),
+      this.page.asObservable(),
+    ]).pipe(
+      map(([products, pageSize, category, keyword, page]) => {
+        console.log(products, 'products');
+
+        const filterProductByCategory = this.filterProductByCategory(
+          products,
+          category,
+        );
+
+        const filterProductByKeyword = this.filterProductByKeyword(
+          filterProductByCategory,
+          keyword,
+        );
+        const filterProductByPagination = this.handlePagination(
+          filterProductByKeyword,
+          {
+            pageSize,
+            currentPage: page,
+          },
+        );
+
+        return {
+          filterItems: filterProductByPagination,
+          totalItems: filterProductByKeyword.length,
+        } as FilterProduct;
+      }),
+    );
   }
 }
