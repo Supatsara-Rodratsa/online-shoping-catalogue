@@ -2,7 +2,7 @@
   <div class="product-catalogue-container">
     <div class="product-catalogue-header">
       <h1>Products Catalogue</h1>
-      <div class="button r">
+      <div class="button r" *ngIf="!isCheckout && !isSuccess">
         <input
           type="checkbox"
           class="checkbox"
@@ -13,10 +13,17 @@
         <div class="layer"></div>
       </div>
     </div>
-    <router-outlet class="outlet-container" />
+    <ng-container *ngIf="loading$ | async; else elseBlock">
+      loading...
+    </ng-container>
+    <ng-template #elseBlock>
+      <router-outlet class="outlet-container" />
+    </ng-template>
   </div>
 
   <app-product-cart
+    *ngIf="!isSuccess"
+    [isCheckout]="isCheckout"
     [allCartItems]="(allCartItems$ | async) ?? []"
     [totalPrice]="(totalPrice$ | async) ?? 0"
     (handleAddingProductToCart)="addCartItem($event)"

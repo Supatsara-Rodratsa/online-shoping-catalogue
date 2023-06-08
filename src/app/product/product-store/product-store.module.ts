@@ -6,18 +6,16 @@ import { ProductCartModule } from './product-cart/product-cart.module';
 import { ProductCatalogueModule } from './product-catalogue/product-catalogue.module';
 import { SharedModule } from '../../shared/shared.module';
 import { ProductService } from '../../services/product.service';
-import { APP_SETTINGS } from '../../app.setting';
-import { AppSettingService } from '../../services/app-setting.service';
 import { ProductCheckoutComponent } from './product-checkout/product-checkout.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ProductSuccessComponent } from './product-success/product-success.component';
 
-function initializeAppSetting(appSettingService: AppSettingService) {
-  return appSettingService.appSetting$;
-}
 @NgModule({
   declarations: [
     ProductCatalogueComponent,
     ProductCartComponent,
     ProductCheckoutComponent,
+    ProductSuccessComponent,
   ],
   exports: [
     ProductCatalogueComponent,
@@ -29,14 +27,8 @@ function initializeAppSetting(appSettingService: AppSettingService) {
     SharedModule,
     ProductCartModule,
     ProductCatalogueModule,
+    ReactiveFormsModule,
   ],
-  providers: [
-    {
-      provide: APP_SETTINGS,
-      useFactory: initializeAppSetting,
-      deps: [AppSettingService],
-    },
-    ProductService,
-  ],
+  providers: [ProductService],
 })
 export class ProductStoreModule {}
