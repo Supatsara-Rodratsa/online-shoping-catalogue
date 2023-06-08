@@ -7,10 +7,13 @@ const routes: Routes = [
     path: '',
     loadChildren: () =>
       import('./product/product.routing').then((m) => m.ProductRoutingModule),
+    title: 'Product Catalogue',
+    pathMatch: 'prefix',
   },
   {
     path: '**',
     component: NotFoundComponent,
+    title: 'Page Not Found',
   },
 ];
 

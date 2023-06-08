@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ProductComponent } from './product.component';
 import { ProductCatalogueComponent } from './product-store/product-catalogue/product-catalogue.component';
 import { ProductCheckoutComponent } from './product-store/product-checkout/product-checkout.component';
+import { ProductSuccessComponent } from './product-store/product-success/product-success.component';
 
 const routes: Routes = [
   {
@@ -12,10 +13,17 @@ const routes: Routes = [
       {
         path: 'checkout',
         component: ProductCheckoutComponent,
+        title: 'Checkout',
+      },
+      {
+        path: 'success',
+        component: ProductSuccessComponent,
+        title: 'Order successfully',
       },
       {
         path: ':category',
         component: ProductCatalogueComponent,
+        title: 'Categorized Product',
       },
       {
         path: '',
