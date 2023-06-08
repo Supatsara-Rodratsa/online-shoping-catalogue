@@ -23,5 +23,15 @@
       <div class="empty-cart-item">Your cart is empty</div>
     </ng-template>
   </div>
-  <h2>Total: {{ totalPrice | currency : 'EUR' : 'symbol' : '1.2-2' }}</h2>
+  <div class="checkout">
+    <h2>Total: {{ totalPrice | currency : 'EUR' : 'symbol' : '1.2-2' }}</h2>
+    <app-cart-button
+      *ngIf="allCartItems.length > 0"
+      (click)="routeToCheckout()"
+      variant="squared"
+      >{{
+        isCheckout ? 'Continue Shopping' : 'Go to Checkout'
+      }}</app-cart-button
+    >
+  </div>
 </div>

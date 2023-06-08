@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { Cart, Product } from 'src/app/interfaces/product.interface';
 
 @Component({
@@ -13,6 +14,9 @@ export class ProductCartComponent {
   @Input()
   totalPrice = 0;
 
+  @Input()
+  isCheckout = false;
+
   @Output()
   handleAddingProductToCart = new EventEmitter<Product>();
 
@@ -21,6 +25,8 @@ export class ProductCartComponent {
 
   @Output()
   clearAllCartItems = new EventEmitter<void>();
+
+  constructor(private router: Router) {}
 
   addProductToCart(product: Product) {
     this.handleAddingProductToCart.emit(product);
@@ -32,5 +38,14 @@ export class ProductCartComponent {
 
   clearCartItems() {
     this.clearAllCartItems.emit();
+  }
+
+  routeToCheckout() {
+    const routePath = this.isCheckout ? '' : 'checkout';
+    this.router.navigate([routePath]);
+  }
+
+  routeToShopping() {
+    this.router.navigate(['']);
   }
 }
