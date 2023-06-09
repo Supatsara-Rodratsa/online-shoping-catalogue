@@ -48,7 +48,7 @@ export class ProductCheckoutComponent {
         },
       ],
       address: this.addressForm,
-      terms: ['', { validators: [Validators.required] }],
+      terms: ['', { validators: [Validators.requiredTrue] }],
     });
   }
 
