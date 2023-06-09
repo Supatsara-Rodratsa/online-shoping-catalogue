@@ -75,9 +75,7 @@ Providing Reactive Form and handling validation logic
 
 ## Development server 🪄
 
-- Run `npm run start` in Server folder for running Backend Service first
-
-- Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- Run `npm run start` for running both Frontend and Backend concurrently
 
 ## Running unit tests 💥
 
