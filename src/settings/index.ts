@@ -1,6 +1,8 @@
+export const HOST = 'http://localhost:3000';
+
 export const PRODUCT_SERVICE_API = {
-  EN: 'http://localhost:3000/products/en',
-  FR: 'http://localhost:3000/products/fr',
+  EN: `${HOST}/products/en`,
+  FR: `${HOST}/products/fr`,
 };
 export const PAGE_SIZE = 5;
 
