@@ -4,7 +4,7 @@ import { ProductService } from '../../services/product.service';
 import { LanguageService } from '../../services/language.service';
 import { LANGUAGE } from 'src/settings';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { Subscription, filter } from 'rxjs';
+import { Subscription, filter, tap } from 'rxjs';
 import { MetaDataService } from 'src/app/services/meta-data.service';
 
 @Component({
@@ -21,6 +21,7 @@ export class ProductStoreComponent implements OnDestroy {
   allCartItems$;
   loading$;
   router$!: Subscription;
+  cartItem$!: Subscription;
 
   currentLanguage = this.languageService.language === LANGUAGE.FR;
   isCheckout = false;
@@ -49,7 +50,8 @@ export class ProductStoreComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.router$.unsubscribe();
+    this.router$?.unsubscribe();
+    this.cartItem$?.unsubscribe();
   }
 
   addCartItem(selectedProduct: Product) {
@@ -58,6 +60,16 @@ export class ProductStoreComponent implements OnDestroy {
 
   removeCartItem(selectedProduct: Product) {
     this.productService.removeCartItem(selectedProduct);
+
+    if (this.isCheckout) {
+      this.cartItem$ = this.allCartItems$
+        .pipe(
+          tap((items) => {
+            if (items.length == 0) this.router.navigate(['']);
+          }),
+        )
+        .subscribe();
+    }
   }
 
   clearCartItems() {

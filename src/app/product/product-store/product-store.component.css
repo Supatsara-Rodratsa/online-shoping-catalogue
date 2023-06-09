@@ -119,3 +119,10 @@
 .outlet-container {
   display: none;
 }
+
+a {
+  font-size: 32px;
+  font-weight: bold;
+  color: black;
+  text-decoration: none;
+}
