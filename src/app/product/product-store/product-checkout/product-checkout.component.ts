@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import {
   AbstractControl,
@@ -7,8 +6,7 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
-import { ProductService } from 'src/app/services/product.service';
+import { CheckoutService } from '../service/checkout.service';
 
 @Component({
   selector: 'app-product-checkout',
@@ -20,9 +18,7 @@ export class ProductCheckoutComponent {
   checkoutForm!: FormGroup;
 
   constructor(
-    private router: Router,
-    private http: HttpClient,
-    private productService: ProductService,
+    private checkoutService: CheckoutService,
     private formBuilder: FormBuilder,
   ) {
     this.initialCheckoutForm();
@@ -71,7 +67,10 @@ export class ProductCheckoutComponent {
   }
 
   submitForm() {
-    if (this.isFormValid()) this.updateUserDetails();
+    if (this.isFormValid())
+      this.checkoutService.submitOrderPurchase({
+        ...this.checkoutForm.value,
+      });
   }
 
   isFormValid(): boolean {
@@ -120,23 +119,5 @@ export class ProductCheckoutComponent {
       return !countryControl.value ? 'is-invalid-selection' : '';
     }
     return '';
-  }
-
-  updateUserDetails() {
-    const requestBody = this.checkoutForm.value;
-    console.log(this.checkoutForm.value);
-
-    this.http.post('http://localhost:3000/order', requestBody).subscribe(
-      () => {
-        // Handle successful response from the backend
-        this.productService.clearCartItems();
-        this.router.navigate(['success']);
-      },
-      (error) => {
-        // Handle error from the backend
-        console.error('Error submitting form:', error);
-        // Optionally show an error message to the user
-      },
-    );
   }
 }

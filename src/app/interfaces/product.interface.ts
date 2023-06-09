@@ -32,3 +32,19 @@ export interface FilterProduct {
   filterItems: Product[];
   totalItems: number;
 }
+
+export interface OrderPurchase {
+  firstName: string;
+  lastName: string;
+  email: string;
+  address: UserAddress;
+  orderItems: Cart[];
+  totalPrice: number;
+}
+
+interface UserAddress {
+  country: string;
+  address: string;
+  zipCode: number;
+  state?: string;
+}
