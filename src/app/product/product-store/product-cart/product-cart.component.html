@@ -3,7 +3,7 @@
     <h1>Carts</h1>
     <app-cart-button
       [variant]="'text'"
-      *ngIf="allCartItems.length > 0"
+      *ngIf="allCartItems.length > 0 && !isCheckout"
       (click)="clearCartItems()"
       >Clear</app-cart-button
     >

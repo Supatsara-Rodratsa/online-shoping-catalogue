@@ -123,15 +123,17 @@
       </div>
     </div>
     <div class="submit-container">
-      <div class="checkout-group term">
-        <input type="checkbox" id="terms" formControlName="terms" />
-        <p>I hereby accept the term of use of this site</p>
+      <div class="form-group">
+        <div class="checkout-group term">
+          <input type="checkbox" id="terms" formControlName="terms" />
+          <p>I hereby accept the term of use of this site</p>
+        </div>
+        <span [ngClass]="isCheckoutFormControlInvalid('terms')">
+          <ng-container
+            *ngTemplateOutlet="error; context: checkoutForm.get('terms')"
+          ></ng-container>
+        </span>
       </div>
-      <span [ngClass]="isCheckoutFormControlInvalid('terms')">
-        <ng-container
-          *ngTemplateOutlet="error; context: checkoutForm.get('terms')"
-        ></ng-container>
-      </span>
       <app-cart-button [isDisable]="!isFormValid()" variant="squared"
         >Submit Detail</app-cart-button
       >
