@@ -13,3 +13,9 @@
 .product-success-container p {
   font-size: 18px;
 }
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}

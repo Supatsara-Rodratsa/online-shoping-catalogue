@@ -7,6 +7,11 @@ import { ProductSuccessComponent } from './product-store/product-success/product
 
 const routes: Routes = [
   {
+    path: 'success',
+    component: ProductSuccessComponent,
+    title: 'Order successfully',
+  },
+  {
     path: '',
     component: ProductComponent,
     children: [
@@ -14,11 +19,6 @@ const routes: Routes = [
         path: 'checkout',
         component: ProductCheckoutComponent,
         title: 'Checkout',
-      },
-      {
-        path: 'success',
-        component: ProductSuccessComponent,
-        title: 'Order successfully',
       },
       {
         path: ':category',
