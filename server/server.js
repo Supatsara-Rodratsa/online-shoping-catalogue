@@ -7,7 +7,8 @@ const fs = require('fs');
 const CONSTANTS = require('./constants');
 const axios = require('axios');
 const franceProduct = require(CONSTANTS.PRODUCT_SERVICE_API.FR);
-
+const config = require('dotenv')
+config.config()
 /**
  * Set up Email Template
  */
@@ -24,8 +25,8 @@ const transporter = nodemailer.createTransport({
   host: 'sandbox.smtp.mailtrap.io',
   port: 2525,
   auth: {
-    user: '1fdf171a07961f',
-    pass: 'ccc14fdf676ff6',
+    user: process.env.MAILTRAP_USER,
+    pass: process.env.MAILTRAP_PASS,
   },
 });
 
