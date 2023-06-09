@@ -37,6 +37,42 @@ Provide paginated browsing functionalities
 
 - Creating _Pagination_ component to inject number of items and page size
 
+### Iteration 4: Abstracting data away
+
+Providing Injection Token
+
+#### Requirements ✨
+
+- Creating _Injection Token_ named APP_SETTINGS for using and injecting data to components or services
+
+### Iteration 5: Adding forms and routing
+
+Providing Reactive Form and handling validation logic
+
+#### Requirements ✨
+
+- The submit button will be disabled until the form controls are all valid
+
+- The customer registration form must validate user input
+
+- All input fields are required, with a particular exception
+
+- Once the user submits the validated form, the navigation will lead the user to the success view.
+
+### Iteration 6 - Adding HTTP communication to our site
+
+Providing Reactive Form and handling validation logic
+
+#### Requirements ✨
+
+- Consuming data from a remote API
+
+- Implementing NodeJS to run Backend Server
+
+- Using MailTrap to send email notification to customer
+
+- Show loading when fetching data from HTTP Client
+
 ## Development server 🪄
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
