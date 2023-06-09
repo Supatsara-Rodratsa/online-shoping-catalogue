@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 import { MetaDataService } from './services/meta-data.service';
 import { AppSettingService } from './services/app-setting.service';
 import { APP_SETTINGS } from './app.setting';
+import { LoadingComponent } from './loading/loading.component';
 
 function initializeApp(metaDataService: MetaDataService) {
   console.log('==== APP INITIALIZER  ====');
@@ -31,6 +32,7 @@ function initializeAppSetting(appSettingService: AppSettingService) {
     ProductStoreComponent,
     ProductComponent,
     NotFoundComponent,
+    LoadingComponent,
   ],
   imports: [
     BrowserModule,
