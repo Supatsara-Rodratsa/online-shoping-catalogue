@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   BehaviorSubject,
-  Subscription,
   catchError,
   combineLatest,
   switchMap,
@@ -20,7 +19,6 @@ import { HOST } from 'src/settings';
 export class CheckoutService {
   private loadingSubject = new BehaviorSubject<boolean>(false);
   loading$ = this.loadingSubject.asObservable();
-  subscription!: Subscription;
 
   constructor(
     private http: HttpClient,
@@ -29,28 +27,26 @@ export class CheckoutService {
   ) {}
 
   submitOrderPurchase(data: OrderPurchase) {
-    this.subscription = combineLatest([
+    combineLatest([
       this.productService.allCartItems,
       this.productService.totalPrice,
-    ])
-      .pipe(
-        take(1),
-        switchMap(([cartItems, totalPrice]) => {
-          this.loadingSubject.next(true);
-          data.orderItems = cartItems;
-          data.totalPrice = totalPrice;
-          return this.http.post(`${HOST}/orders`, data);
-        }),
-        tap(() => {
-          this.productService.clearCartItems();
-          this.router.navigate(['success']);
-          this.loadingSubject.next(false);
-        }),
-        catchError((error) => {
-          console.error('There is something wrong! ', error);
-          throw error;
-        }),
-      )
-      .subscribe();
+    ]).pipe(
+      take(1),
+      switchMap(([cartItems, totalPrice]) => {
+        this.loadingSubject.next(true);
+        data.orderItems = cartItems;
+        data.totalPrice = totalPrice;
+        return this.http.post(`${HOST}/orders`, data);
+      }),
+      tap(() => {
+        this.productService.clearCartItems();
+        this.router.navigate(['success']);
+        this.loadingSubject.next(false);
+      }),
+      catchError((error) => {
+        console.error('There is something wrong! ', error);
+        throw error;
+      }),
+    );
   }
 }
