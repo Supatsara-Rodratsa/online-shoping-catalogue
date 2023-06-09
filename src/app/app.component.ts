@@ -1,12 +1,17 @@
 import { Component, OnDestroy } from '@angular/core';
 import { MetaDataService } from './services/meta-data.service';
+import { CheckoutService } from './product/product-store/service/checkout.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnDestroy {
-  constructor(private metaDataService: MetaDataService) {}
+  loading$ = this.checkoutService.loading$;
+  constructor(
+    private metaDataService: MetaDataService,
+    private checkoutService: CheckoutService,
+  ) {}
 
   ngOnDestroy(): void {
     /**

@@ -1,3 +1,8 @@
-<div class="online-shop-container" role="main">
-  <router-outlet></router-outlet>
-</div>
+<ng-container *ngIf="loading$ | async; else elseBlock">
+  <app-loading />
+</ng-container>
+<ng-template #elseBlock>
+  <div class="online-shop-container" role="main">
+    <router-outlet></router-outlet>
+  </div>
+</ng-template>

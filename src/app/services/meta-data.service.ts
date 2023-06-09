@@ -40,7 +40,7 @@ export class MetaDataService {
         switchMap((setting) => {
           this.loadingSubject.next(true);
           return this.httpClient.get<Product[]>(setting.dataSourceURL).pipe(
-            delay(1000),
+            delay(2000),
             tap((product) => {
               this.product.next(product);
               this.loadingSubject.next(false);

@@ -9,6 +9,7 @@ import { ProductService } from '../../services/product.service';
 import { ProductCheckoutComponent } from './product-checkout/product-checkout.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProductSuccessComponent } from './product-success/product-success.component';
+import { CheckoutService } from './service/checkout.service';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,6 @@ import { ProductSuccessComponent } from './product-success/product-success.compo
     ProductCatalogueModule,
     ReactiveFormsModule,
   ],
-  providers: [ProductService],
+  providers: [ProductService, CheckoutService],
 })
 export class ProductStoreModule {}

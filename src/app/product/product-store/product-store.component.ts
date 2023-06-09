@@ -19,12 +19,11 @@ import { MetaDataService } from 'src/app/services/meta-data.service';
 export class ProductStoreComponent implements OnDestroy {
   totalPrice$;
   allCartItems$;
-  router$!: Subscription;
   loading$;
+  router$!: Subscription;
 
   currentLanguage = this.languageService.language === LANGUAGE.FR;
   isCheckout = false;
-  isSuccess = false;
 
   constructor(
     private metaDataService: MetaDataService,
@@ -46,7 +45,6 @@ export class ProductStoreComponent implements OnDestroy {
         const currentRoute = this.activatedRoute.firstChild;
         const currentPath = currentRoute?.snapshot.routeConfig?.path;
         this.isCheckout = currentPath === 'checkout';
-        this.isSuccess = currentPath === 'success';
       });
   }
 
@@ -68,6 +66,7 @@ export class ProductStoreComponent implements OnDestroy {
 
   updateCurrentLanguage(lang: boolean) {
     this.productService.category.next('all');
+    this.router.navigate(['']);
     this.languageService.setLanguage(lang ? LANGUAGE.FR : LANGUAGE.EN);
   }
 }
