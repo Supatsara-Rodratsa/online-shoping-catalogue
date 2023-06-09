@@ -1,0 +1,86 @@
+<html>
+  <head>
+    <meta charset='utf-8' />
+    <title>Email Template</title>
+    <style>
+      @import
+      url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700&display=swap');
+      body { padding: 20px; font-family: 'Nunito', sans-serif; } .product-name {
+      width: 80%; } .quantity { width: 20%; text-align: center; } .align-left
+      {text-align: left;} .header{background-color: #ddd9d4;} th,tr {padding:
+      2px 16px;} .align-center { text-align: center; } .table-container td
+      {padding: 8px 16px;} .total {font-size: 16px; font-weight: bold; }
+      .purchase_content { background-color: #ededed; } .header th {padding: 8px
+      16px;} .text-bold { font-weight: bold; }
+    </style>
+    <script
+      src='https://cdn.jsdelivr.net/npm/handlebars/dist/handlebars.min.js'
+    ></script>
+
+  </head>
+  <body>
+    <h1>Hi {{name}},</h1>
+    <p>Thanks for using
+      {{product_name}}. Your order will be delivered to the following address:</p>
+
+    <p><span class='text-bold'>Address:</span>
+      {{address}},
+      {{zipCode}},
+      {{state}},
+      {{country}}
+    </p>
+
+    <p>Please expect delivery within 5 business days.</p>
+
+    <table class='purchase' width='100%' cellpadding='0' cellspacing='0'>
+      <tr>
+        <td>
+          <h3>Receipt ID: {{receipt_id}}</h3>
+        </td>
+        <td>
+          <h3 class='align-left'>Purchase Date: {{date}}</h3>
+        </td>
+      </tr>
+      <tr>
+        <td colspan='2'>
+          <table
+            class='purchase_content'
+            width='100%'
+            cellpadding='0'
+            cellspacing='0'
+          >
+            <tr class='header'>
+              <th class='product-name'>
+                <p class='align-left'>Product Name</p>
+              </th>
+              <th class='quantity'>
+                <p class='align-center'>Quantity</p>
+              </th>
+            </tr>
+            {{#each receipt_details as |item index|}}
+              <tr class='table-container'>
+                <td class='product-name'>{{title}}</td>
+                <td class='quantity'>{{quantity}}</td>
+              </tr>
+            {{/each}}
+            <tr class='table-container total'>
+              <td width='80%' class='purchase_footer' valign='middle'>
+                <p>Total</p>
+              </td>
+              <td width='20%' class='purchase_footer' valign='middle'>
+                <p class='align-center'>{{total}}</p>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+
+    <p>If you have any questions about this receipt, simply reply to this email
+      or reach out to our
+      <a href='mailto:supatsara.rodratsa@gmail.com'>support team</a>
+      for help.</p>
+
+    <p>Cheers,<br />The {{product_name}} Team</p>
+  </body>
+</html>

@@ -1,0 +1,25 @@
+{
+  "name": "mail-server",
+  "version": "1.0.0",
+  "description": "SMTP HTTP communication",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "author": "Supatsara Rodratsa",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^8.42.0",
+    "eslint-plugin-node": "^11.1.0",
+    "nodemon": "^2.0.22",
+    "prettier": "^2.8.8"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "handlebars": "^4.7.7",
+    "nodemailer": "^6.9.3"
+  }
+}
