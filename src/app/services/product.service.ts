@@ -164,8 +164,8 @@ export class ProductService {
   }
 
   private updateLatestCategories() {
-    this.categories$ = combineLatest([this.product$]).pipe(
-      map(([products]) => this.categorizedProductItems(products)),
+    this.categories$ = this.product$.pipe(
+      map((products) => this.categorizedProductItems(products)),
     );
   }
 
