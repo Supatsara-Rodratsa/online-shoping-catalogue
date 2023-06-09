@@ -15,6 +15,7 @@ import { MetaDataService } from './services/meta-data.service';
 import { AppSettingService } from './services/app-setting.service';
 import { APP_SETTINGS } from './app.setting';
 import { LoadingComponent } from './loading/loading.component';
+import { ProductGuard } from './product/product.guard';
 
 function initializeApp(metaDataService: MetaDataService) {
   console.log('==== APP INITIALIZER  ====');
@@ -59,6 +60,7 @@ function initializeAppSetting(appSettingService: AppSettingService) {
       deps: [APP_SETTINGS, MetaDataService],
       multi: true,
     },
+    ProductGuard,
   ],
 })
 export class AppModule {}
