@@ -4,6 +4,7 @@
       <div class="product-catalogue-header">
         <app-tabs
           [tabs]="categories"
+          [activeTab]="currentSelectedCategory"
           (selectedTab)="updateOnSelectedCategoryChanged($event)"
         />
         <app-search-item

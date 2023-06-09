@@ -16,7 +16,7 @@ export class ProductCatalogueComponent {
   categories$;
   pageSize$;
 
-  currentSelectedCategory = 'all';
+  currentSelectedCategory = this.productService.category.value;
   currentSearchKeyword = '';
   placeholder = 'Search';
   currentPage = 1;
