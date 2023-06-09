@@ -11,7 +11,6 @@ const routes: Routes = [
     path: 'success',
     component: ProductSuccessComponent,
     title: 'Order successfully',
-    canActivate: [ProductGuard],
   },
   {
     path: '',

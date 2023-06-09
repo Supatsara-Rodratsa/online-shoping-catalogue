@@ -30,23 +30,25 @@ export class CheckoutService {
     combineLatest([
       this.productService.allCartItems,
       this.productService.totalPrice,
-    ]).pipe(
-      take(1),
-      switchMap(([cartItems, totalPrice]) => {
-        this.loadingSubject.next(true);
-        data.orderItems = cartItems;
-        data.totalPrice = totalPrice;
-        return this.http.post(`${HOST}/orders`, data);
-      }),
-      tap(() => {
-        this.productService.clearCartItems();
-        this.router.navigate(['success']);
-        this.loadingSubject.next(false);
-      }),
-      catchError((error) => {
-        console.error('There is something wrong! ', error);
-        throw error;
-      }),
-    );
+    ])
+      .pipe(
+        take(1),
+        switchMap(([cartItems, totalPrice]) => {
+          this.loadingSubject.next(true);
+          data.orderItems = cartItems;
+          data.totalPrice = totalPrice;
+          return this.http.post(`${HOST}/orders`, data);
+        }),
+        tap(() => {
+          this.productService.clearCartItems();
+          this.router.navigate(['success']);
+          this.loadingSubject.next(false);
+        }),
+        catchError((error) => {
+          console.error('There is something wrong! ', error);
+          throw error;
+        }),
+      )
+      .subscribe();
   }
 }
